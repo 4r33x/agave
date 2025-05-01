@@ -45,35 +45,35 @@ impl<Tx> TransactionCost<'_, Tx> {
         }
     }
 
-    pub fn programs_execution_cost(&self) -> u64 {
+    pub const fn programs_execution_cost(&self) -> u64 {
         match self {
             Self::SimpleVote { .. } => solana_vote_program::vote_processor::DEFAULT_COMPUTE_UNITS,
             Self::Transaction(usage_cost) => usage_cost.programs_execution_cost,
         }
     }
 
-    pub fn is_simple_vote(&self) -> bool {
+    pub const fn is_simple_vote(&self) -> bool {
         match self {
             Self::SimpleVote { .. } => true,
             Self::Transaction(_) => false,
         }
     }
 
-    pub fn data_bytes_cost(&self) -> u16 {
+    pub const fn data_bytes_cost(&self) -> u16 {
         match self {
             Self::SimpleVote { .. } => 0,
             Self::Transaction(usage_cost) => usage_cost.data_bytes_cost,
         }
     }
 
-    pub fn allocated_accounts_data_size(&self) -> u64 {
+    pub const fn allocated_accounts_data_size(&self) -> u64 {
         match self {
             Self::SimpleVote { .. } => 0,
             Self::Transaction(usage_cost) => usage_cost.allocated_accounts_data_size,
         }
     }
 
-    pub fn loaded_accounts_data_size_cost(&self) -> u64 {
+    pub const fn loaded_accounts_data_size_cost(&self) -> u64 {
         match self {
             Self::SimpleVote { .. } => 8, // simple-vote loads less than 32K account data,
             // the cost round up to be one page (32K) cost: 8CU
@@ -81,14 +81,14 @@ impl<Tx> TransactionCost<'_, Tx> {
         }
     }
 
-    pub fn signature_cost(&self) -> u64 {
+    pub const fn signature_cost(&self) -> u64 {
         match self {
             Self::SimpleVote { .. } => block_cost_limits::SIGNATURE_COST,
             Self::Transaction(usage_cost) => usage_cost.signature_cost,
         }
     }
 
-    pub fn write_lock_cost(&self) -> u64 {
+    pub const fn write_lock_cost(&self) -> u64 {
         match self {
             Self::SimpleVote { .. } => block_cost_limits::WRITE_LOCK_UNITS.saturating_mul(2),
             Self::Transaction(usage_cost) => usage_cost.write_lock_cost,

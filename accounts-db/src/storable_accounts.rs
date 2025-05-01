@@ -37,7 +37,7 @@ impl IsZeroLamport for AccountForStorage<'_> {
 }
 
 impl<'a> AccountForStorage<'a> {
-    pub fn pubkey(&self) -> &'a Pubkey {
+    pub const fn pubkey(&self) -> &'a Pubkey {
         match self {
             AccountForStorage::AddressAndAccount((pubkey, _account)) => pubkey,
             AccountForStorage::StoredAccountInfo(account) => account.pubkey(),

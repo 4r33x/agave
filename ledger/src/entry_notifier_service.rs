@@ -65,7 +65,7 @@ impl EntryNotifierService {
         Ok(())
     }
 
-    pub fn sender(&self) -> &EntryNotifierSender {
+    pub const fn sender(&self) -> &EntryNotifierSender {
         &self.sender
     }
 

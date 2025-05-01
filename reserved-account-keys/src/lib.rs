@@ -119,14 +119,14 @@ struct ReservedAccount {
 }
 
 impl ReservedAccount {
-    fn new_pending(key: Pubkey, feature_id: Pubkey) -> Self {
+    const fn new_pending(key: Pubkey, feature_id: Pubkey) -> Self {
         Self {
             key,
             feature_id: Some(feature_id),
         }
     }
 
-    fn new_active(key: Pubkey) -> Self {
+    const fn new_active(key: Pubkey) -> Self {
         Self {
             key,
             feature_id: None,

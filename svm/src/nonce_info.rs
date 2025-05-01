@@ -28,7 +28,7 @@ enum AdvanceNonceError {
 }
 
 impl NonceInfo {
-    pub fn new(address: Pubkey, account: AccountSharedData) -> Self {
+    pub const fn new(address: Pubkey, account: AccountSharedData) -> Self {
         Self { address, account }
     }
 
@@ -55,11 +55,11 @@ impl NonceInfo {
         }
     }
 
-    pub fn address(&self) -> &Pubkey {
+    pub const fn address(&self) -> &Pubkey {
         &self.address
     }
 
-    pub fn account(&self) -> &AccountSharedData {
+    pub const fn account(&self) -> &AccountSharedData {
         &self.account
     }
 }

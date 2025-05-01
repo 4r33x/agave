@@ -18,7 +18,7 @@ pub struct HashInfo {
 }
 
 impl HashInfo {
-    pub fn lamports_per_signature(&self) -> u64 {
+    pub const fn lamports_per_signature(&self) -> u64 {
         self.fee_calculator.lamports_per_signature
     }
 }
@@ -59,7 +59,7 @@ impl BlockhashQueue {
         }
     }
 
-    pub fn last_hash(&self) -> Hash {
+    pub const fn last_hash(&self) -> Hash {
         self.last_hash.expect("no hash has been set")
     }
 
@@ -107,7 +107,7 @@ impl BlockhashQueue {
         self.last_hash = Some(*hash);
     }
 
-    fn is_hash_index_valid(last_hash_index: u64, max_age: usize, hash_index: u64) -> bool {
+    const fn is_hash_index_valid(last_hash_index: u64, max_age: usize, hash_index: u64) -> bool {
         last_hash_index - hash_index <= max_age as u64
     }
 
@@ -146,7 +146,7 @@ impl BlockhashQueue {
         since = "2.0.0",
         note = "Please use `solana_program::clock::MAX_PROCESSING_AGE`"
     )]
-    pub fn get_max_age(&self) -> usize {
+    pub const fn get_max_age(&self) -> usize {
         self.max_age
     }
 }

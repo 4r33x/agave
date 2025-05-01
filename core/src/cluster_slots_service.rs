@@ -27,7 +27,11 @@ struct ClusterSlotsServiceTiming {
 }
 
 impl ClusterSlotsServiceTiming {
-    fn update(&mut self, lowest_slot_elapsed: u64, process_cluster_slots_updates_elapsed: u64) {
+    const fn update(
+        &mut self,
+        lowest_slot_elapsed: u64,
+        process_cluster_slots_updates_elapsed: u64,
+    ) {
         self.lowest_slot_elapsed += lowest_slot_elapsed;
         self.process_cluster_slots_updates_elapsed += process_cluster_slots_updates_elapsed;
     }

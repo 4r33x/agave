@@ -35,7 +35,7 @@ pub struct FeeDistribution {
 }
 
 impl FeeDistribution {
-    pub fn get_deposit(&self) -> u64 {
+    pub const fn get_deposit(&self) -> u64 {
         self.deposit
     }
 }

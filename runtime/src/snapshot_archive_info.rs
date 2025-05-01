@@ -72,7 +72,7 @@ impl FullSnapshotArchiveInfo {
         }))
     }
 
-    pub(crate) fn new(snapshot_archive_info: SnapshotArchiveInfo) -> Self {
+    pub(crate) const fn new(snapshot_archive_info: SnapshotArchiveInfo) -> Self {
         Self(snapshot_archive_info)
     }
 }
@@ -126,14 +126,14 @@ impl IncrementalSnapshotArchiveInfo {
         ))
     }
 
-    pub(crate) fn new(base_slot: Slot, snapshot_archive_info: SnapshotArchiveInfo) -> Self {
+    pub(crate) const fn new(base_slot: Slot, snapshot_archive_info: SnapshotArchiveInfo) -> Self {
         Self {
             base_slot,
             inner: snapshot_archive_info,
         }
     }
 
-    pub fn base_slot(&self) -> Slot {
+    pub const fn base_slot(&self) -> Slot {
         self.base_slot
     }
 }

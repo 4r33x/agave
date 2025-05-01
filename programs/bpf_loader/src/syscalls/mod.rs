@@ -241,7 +241,7 @@ pub struct VmSlice<T> {
 }
 
 impl<T> VmSlice<T> {
-    pub fn new(ptr: u64, len: u64) -> Self {
+    pub const fn new(ptr: u64, len: u64) -> Self {
         VmSlice {
             ptr,
             len,
@@ -249,20 +249,20 @@ impl<T> VmSlice<T> {
         }
     }
 
-    pub fn ptr(&self) -> u64 {
+    pub const fn ptr(&self) -> u64 {
         self.ptr
     }
-    pub fn len(&self) -> u64 {
+    pub const fn len(&self) -> u64 {
         self.len
     }
 
-    pub fn is_empty(&self) -> bool {
+    pub const fn is_empty(&self) -> bool {
         self.len == 0
     }
 
     /// Adjust the length of the vector. This is unchecked, and it assumes that the pointer
     /// points to valid memory of the correct length after vm-translation.
-    pub fn resize(&mut self, len: u64) {
+    pub const fn resize(&mut self, len: u64) {
         self.len = len;
     }
 

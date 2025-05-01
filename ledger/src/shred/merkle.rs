@@ -273,7 +273,7 @@ macro_rules! impl_merkle_shred {
     ($variant:ident) => {
         // proof_size is the number of merkle proof entries.
         #[inline]
-        fn proof_size(&self) -> Result<u8, Error> {
+        const fn proof_size(&self) -> Result<u8, Error> {
             match self.common_header.shred_variant {
                 ShredVariant::$variant { proof_size, .. } => Ok(proof_size),
                 _ => Err(Error::InvalidShredVariant),

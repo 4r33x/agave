@@ -89,7 +89,7 @@ pub struct SlotRepairs {
 }
 
 impl SlotRepairs {
-    pub fn pubkey_repairs(&self) -> &HashMap<Pubkey, u64> {
+    pub const fn pubkey_repairs(&self) -> &HashMap<Pubkey, u64> {
         &self.pubkey_repairs
     }
 }
@@ -278,7 +278,7 @@ pub struct BestRepairsStats {
 
 impl BestRepairsStats {
     #[allow(clippy::too_many_arguments)]
-    pub fn update(
+    pub const fn update(
         &mut self,
         num_orphan_slots: u64,
         num_orphan_repairs: u64,
@@ -392,7 +392,7 @@ pub struct RepairServiceChannels {
 }
 
 impl RepairServiceChannels {
-    pub fn new(
+    pub const fn new(
         repair_request_quic_sender: AsyncSender<(SocketAddr, Bytes)>,
         verified_vote_receiver: VerifiedVoteReceiver,
         dumped_slots_receiver: DumpedSlotsReceiver,

@@ -28,23 +28,23 @@ impl Default for FeatureSet {
 }
 
 impl FeatureSet {
-    pub fn new(active: AHashMap<Pubkey, u64>, inactive: AHashSet<Pubkey>) -> Self {
+    pub const fn new(active: AHashMap<Pubkey, u64>, inactive: AHashSet<Pubkey>) -> Self {
         Self { active, inactive }
     }
 
-    pub fn active(&self) -> &AHashMap<Pubkey, u64> {
+    pub const fn active(&self) -> &AHashMap<Pubkey, u64> {
         &self.active
     }
 
-    pub fn active_mut(&mut self) -> &mut AHashMap<Pubkey, u64> {
+    pub const fn active_mut(&mut self) -> &mut AHashMap<Pubkey, u64> {
         &mut self.active
     }
 
-    pub fn inactive(&self) -> &AHashSet<Pubkey> {
+    pub const fn inactive(&self) -> &AHashSet<Pubkey> {
         &self.inactive
     }
 
-    pub fn inactive_mut(&mut self) -> &mut AHashSet<Pubkey> {
+    pub const fn inactive_mut(&mut self) -> &mut AHashSet<Pubkey> {
         &mut self.inactive
     }
 

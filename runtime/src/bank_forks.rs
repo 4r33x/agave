@@ -134,7 +134,7 @@ impl BankForks {
         bank_forks
     }
 
-    pub fn banks(&self) -> &HashMap<Slot, BankWithScheduler> {
+    pub const fn banks(&self) -> &HashMap<Slot, BankWithScheduler> {
         &self.banks
     }
 

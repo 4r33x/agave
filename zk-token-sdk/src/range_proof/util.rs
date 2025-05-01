@@ -70,7 +70,7 @@ impl Iterator for ScalarExp {
 }
 
 /// Return an iterator of the powers of `x`.
-pub fn exp_iter(x: Scalar) -> ScalarExp {
+pub const fn exp_iter(x: Scalar) -> ScalarExp {
     let next_exp_x = Scalar::ONE;
     ScalarExp { x, next_exp_x }
 }

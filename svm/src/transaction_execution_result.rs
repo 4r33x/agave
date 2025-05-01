@@ -27,7 +27,7 @@ pub struct ExecutedTransaction {
 }
 
 impl ExecutedTransaction {
-    pub fn was_successful(&self) -> bool {
+    pub const fn was_successful(&self) -> bool {
         self.execution_details.was_successful()
     }
 }
@@ -45,7 +45,7 @@ pub struct TransactionExecutionDetails {
 }
 
 impl TransactionExecutionDetails {
-    pub fn was_successful(&self) -> bool {
+    pub const fn was_successful(&self) -> bool {
         self.status.is_ok()
     }
 }

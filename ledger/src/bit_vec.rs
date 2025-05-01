@@ -58,13 +58,13 @@ impl<const NUM_BITS: usize> BitVec<NUM_BITS> {
     /// assert_eq!(word_idx, 7);
     /// assert_eq!(bit_idx, 7);
     /// ```
-    pub fn location_of(idx: usize) -> (usize, usize) {
+    pub const fn location_of(idx: usize) -> (usize, usize) {
         let word_idx = idx / BITS_PER_WORD;
         let bit_idx = idx & (BITS_PER_WORD - 1);
         (word_idx, bit_idx)
     }
 
-    fn check_bounds(&self, idx: usize) -> Result<(), BitVecError> {
+    const fn check_bounds(&self, idx: usize) -> Result<(), BitVecError> {
         if idx >= NUM_BITS {
             return Err(BitVecError::OutOfBounds {
                 index: idx,

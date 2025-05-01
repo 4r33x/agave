@@ -115,7 +115,7 @@ impl RollingBitField {
         key % self.max_width
     }
 
-    pub fn range_width(&self) -> u64 {
+    pub const fn range_width(&self) -> u64 {
         // note that max isn't updated on remove, so it can be above the current max
         self.max_exclusive - self.min
     }
@@ -279,19 +279,19 @@ impl RollingBitField {
         }
     }
 
-    pub fn len(&self) -> usize {
+    pub const fn len(&self) -> usize {
         self.count
     }
 
-    pub fn is_empty(&self) -> bool {
+    pub const fn is_empty(&self) -> bool {
         self.len() == 0
     }
 
-    pub fn max_exclusive(&self) -> u64 {
+    pub const fn max_exclusive(&self) -> u64 {
         self.max_exclusive
     }
 
-    pub fn max_inclusive(&self) -> u64 {
+    pub const fn max_inclusive(&self) -> u64 {
         self.max_exclusive.saturating_sub(1)
     }
 

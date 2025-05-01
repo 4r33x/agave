@@ -128,7 +128,7 @@ impl AccountMetaOptionalFields {
 
     /// Given the specified AccountMetaFlags, returns the relative offset
     /// of its rent_epoch field to the offset of its optional fields entry.
-    pub fn rent_epoch_offset(_flags: &AccountMetaFlags) -> usize {
+    pub const fn rent_epoch_offset(_flags: &AccountMetaFlags) -> usize {
         0
     }
 }

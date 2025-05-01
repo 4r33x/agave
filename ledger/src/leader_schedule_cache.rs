@@ -66,13 +66,13 @@ impl LeaderScheduleCache {
         cache
     }
 
-    pub fn set_max_schedules(&mut self, max_schedules: usize) {
+    pub const fn set_max_schedules(&mut self, max_schedules: usize) {
         if max_schedules > 0 {
             self.max_schedules = CacheCapacity(max_schedules);
         }
     }
 
-    pub fn max_schedules(&self) -> usize {
+    pub const fn max_schedules(&self) -> usize {
         self.max_schedules.0
     }
 

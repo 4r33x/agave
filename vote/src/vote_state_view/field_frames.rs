@@ -80,11 +80,11 @@ pub(super) struct LockoutItem {
 
 impl LockoutItem {
     #[inline]
-    pub(super) fn slot(&self) -> Slot {
+    pub(super) const fn slot(&self) -> Slot {
         u64::from_le_bytes(self.slot)
     }
     #[inline]
-    pub(super) fn confirmation_count(&self) -> u32 {
+    pub(super) const fn confirmation_count(&self) -> u32 {
         u32::from_le_bytes(self.confirmation_count)
     }
 }
@@ -253,15 +253,15 @@ impl ListFrame for EpochCreditsListFrame {
 
 impl EpochCreditsItem {
     #[inline]
-    pub fn epoch(&self) -> u64 {
+    pub const fn epoch(&self) -> u64 {
         u64::from_le_bytes(self.epoch)
     }
     #[inline]
-    pub fn credits(&self) -> u64 {
+    pub const fn credits(&self) -> u64 {
         u64::from_le_bytes(self.credits)
     }
     #[inline]
-    pub fn prev_credits(&self) -> u64 {
+    pub const fn prev_credits(&self) -> u64 {
         u64::from_le_bytes(self.prev_credits)
     }
 }
@@ -278,7 +278,7 @@ pub(super) struct RootSlotView<'a> {
 }
 
 impl<'a> RootSlotView<'a> {
-    pub(super) fn new(frame: RootSlotFrame, buffer: &'a [u8]) -> Self {
+    pub(super) const fn new(frame: RootSlotFrame, buffer: &'a [u8]) -> Self {
         Self { frame, buffer }
     }
 }
@@ -305,11 +305,11 @@ pub(super) struct RootSlotFrame {
 }
 
 impl RootSlotFrame {
-    pub(super) fn total_size(&self) -> usize {
+    pub(super) const fn total_size(&self) -> usize {
         1 + self.size()
     }
 
-    pub(super) fn size(&self) -> usize {
+    pub(super) const fn size(&self) -> usize {
         if self.has_root_slot {
             core::mem::size_of::<Slot>()
         } else {

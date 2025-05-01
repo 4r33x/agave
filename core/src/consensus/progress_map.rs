@@ -38,7 +38,7 @@ impl Default for ValidatorStakeInfo {
 }
 
 impl ValidatorStakeInfo {
-    pub fn new(validator_vote_pubkey: Pubkey, stake: u64, total_epoch_stake: u64) -> Self {
+    pub const fn new(validator_vote_pubkey: Pubkey, stake: u64, total_epoch_stake: u64) -> Self {
         Self {
             validator_vote_pubkey,
             stake,

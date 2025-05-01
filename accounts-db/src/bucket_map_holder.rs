@@ -80,7 +80,7 @@ impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> Debug for BucketMapHo
 #[allow(clippy::mutex_atomic)]
 impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> BucketMapHolder<T, U> {
     /// is the accounts index using disk as a backing store
-    pub fn is_disk_index_enabled(&self) -> bool {
+    pub const fn is_disk_index_enabled(&self) -> bool {
         self.disk.is_some()
     }
 
@@ -171,7 +171,10 @@ impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> BucketMapHolder<T, U>
     }
 
     /// have all buckets been flushed at the current age?
-    fn all_buckets_flushed_at_current_age_internal(&self, count_buckets_flushed: usize) -> bool {
+    const fn all_buckets_flushed_at_current_age_internal(
+        &self,
+        count_buckets_flushed: usize,
+    ) -> bool {
         count_buckets_flushed >= self.bins
     }
 
@@ -249,12 +252,12 @@ impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> BucketMapHolder<T, U>
 
     /// prepare for this to be dynamic if necessary
     /// For example, maybe startup has a shorter age interval.
-    fn age_interval_ms(&self) -> u64 {
+    const fn age_interval_ms(&self) -> u64 {
         AGE_MS
     }
 
     /// return an amount of ms to sleep
-    fn throttling_wait_ms_internal(
+    const fn throttling_wait_ms_internal(
         &self,
         interval_ms: u64,
         elapsed_ms: u64,

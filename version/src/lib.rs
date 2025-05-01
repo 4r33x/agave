@@ -41,7 +41,7 @@ pub struct Version {
 }
 
 impl Version {
-    pub fn as_semver_version(&self) -> semver::Version {
+    pub const fn as_semver_version(&self) -> semver::Version {
         semver::Version::new(self.major as u64, self.minor as u64, self.patch as u64)
     }
 

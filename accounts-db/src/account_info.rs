@@ -155,7 +155,7 @@ impl AccountInfo {
         }
     }
 
-    pub fn get_reduced_offset(offset: usize) -> OffsetReduced {
+    pub const fn get_reduced_offset(offset: usize) -> OffsetReduced {
         (offset / ALIGN_BOUNDARY_OFFSET) as OffsetReduced
     }
 
@@ -173,7 +173,7 @@ impl AccountInfo {
         )
     }
 
-    pub fn reduced_offset_to_offset(reduced_offset: OffsetReduced) -> Offset {
+    pub const fn reduced_offset_to_offset(reduced_offset: OffsetReduced) -> Offset {
         (reduced_offset as Offset) * ALIGN_BOUNDARY_OFFSET
     }
 

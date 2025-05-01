@@ -8,7 +8,7 @@ use {
 pub struct TransactionBatchId(u64);
 
 impl TransactionBatchId {
-    pub fn new(index: u64) -> Self {
+    pub const fn new(index: u64) -> Self {
         Self(index)
     }
 }

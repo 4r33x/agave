@@ -38,7 +38,7 @@ pub struct SVMFeatureSet {
 }
 
 impl SVMFeatureSet {
-    pub fn all_enabled() -> Self {
+    pub const fn all_enabled() -> Self {
         Self {
             lift_cpi_caller_restriction: true,
             move_precompile_verification_to_svm: true,

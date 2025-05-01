@@ -2593,14 +2593,14 @@ pub fn purge_bank_snapshot(bank_snapshot_dir: impl AsRef<Path>) -> Result<()> {
     Ok(())
 }
 
-pub fn should_take_full_snapshot(
+pub const fn should_take_full_snapshot(
     block_height: Slot,
     full_snapshot_archive_interval_slots: Slot,
 ) -> bool {
     block_height % full_snapshot_archive_interval_slots == 0
 }
 
-pub fn should_take_incremental_snapshot(
+pub const fn should_take_incremental_snapshot(
     block_height: Slot,
     incremental_snapshot_archive_interval_slots: Slot,
     latest_full_snapshot_slot: Option<Slot>,

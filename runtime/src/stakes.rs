@@ -57,7 +57,7 @@ type StakeAccount = stake_account::StakeAccount<Delegation>;
 pub(crate) struct StakesCache(RwLock<Stakes<StakeAccount>>);
 
 impl StakesCache {
-    pub(crate) fn new(stakes: Stakes<StakeAccount>) -> Self {
+    pub(crate) const fn new(stakes: Stakes<StakeAccount>) -> Self {
         Self(RwLock::new(stakes))
     }
 
@@ -192,7 +192,7 @@ pub enum StakesEnum {
 }
 
 impl<T: Clone> Stakes<T> {
-    pub fn vote_accounts(&self) -> &VoteAccounts {
+    pub const fn vote_accounts(&self) -> &VoteAccounts {
         &self.vote_accounts
     }
 
@@ -290,7 +290,7 @@ impl Stakes<StakeAccount> {
         }
     }
 
-    pub(crate) fn history(&self) -> &StakeHistory {
+    pub(crate) const fn history(&self) -> &StakeHistory {
         &self.stake_history
     }
 
@@ -415,7 +415,7 @@ impl Stakes<StakeAccount> {
         }
     }
 
-    pub(crate) fn stake_delegations(&self) -> &ImHashMap<Pubkey, StakeAccount> {
+    pub(crate) const fn stake_delegations(&self) -> &ImHashMap<Pubkey, StakeAccount> {
         &self.stake_delegations
     }
 
@@ -426,7 +426,7 @@ impl Stakes<StakeAccount> {
 }
 
 impl StakesEnum {
-    pub fn vote_accounts(&self) -> &VoteAccounts {
+    pub const fn vote_accounts(&self) -> &VoteAccounts {
         match self {
             StakesEnum::Accounts(stakes) => stakes.vote_accounts(),
             StakesEnum::Delegations(stakes) => stakes.vote_accounts(),

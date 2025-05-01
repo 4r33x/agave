@@ -696,7 +696,7 @@ impl<'b, T: Clone + Copy + PartialEq + std::fmt::Debug + 'static> Bucket<T> {
         }
     }
 
-    pub(crate) fn set_anticipated_count(&mut self, count: u64) {
+    pub(crate) const fn set_anticipated_count(&mut self, count: u64) {
         self.anticipated_size = count;
     }
 
@@ -781,7 +781,7 @@ impl<'b, T: Clone + Copy + PartialEq + std::fmt::Debug + 'static> Bucket<T> {
         self.index = index;
     }
 
-    fn elem_size() -> u64 {
+    const fn elem_size() -> u64 {
         std::mem::size_of::<T>() as u64
     }
 

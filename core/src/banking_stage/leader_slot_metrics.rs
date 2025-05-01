@@ -62,7 +62,7 @@ pub struct CommittedTransactionsCounts {
 }
 
 impl CommittedTransactionsCounts {
-    pub fn accumulate(
+    pub const fn accumulate(
         &mut self,
         transaction_counts: &LeaderProcessedTransactionCounts,
         committed: bool,
@@ -421,7 +421,7 @@ impl LeaderSlotMetrics {
     }
 
     /// Returns `Some(self.slot)` if the metrics have been reported, otherwise returns None
-    fn reported_slot(&self) -> Option<Slot> {
+    const fn reported_slot(&self) -> Option<Slot> {
         if self.is_reported {
             Some(self.slot)
         } else {
@@ -633,7 +633,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn accumulate_vote_batch_insertion_metrics(
+    pub(crate) const fn accumulate_vote_batch_insertion_metrics(
         &mut self,
         vote_batch_insertion_metrics: &VoteBatchInsertionMetrics,
     ) {
@@ -660,7 +660,7 @@ impl LeaderSlotMetricsTracker {
     }
 
     // Packet inflow/outflow/processing metrics
-    pub(crate) fn increment_received_packet_counts(&mut self, stats: PacketReceiverStats) {
+    pub(crate) const fn increment_received_packet_counts(&mut self, stats: PacketReceiverStats) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             let metrics = &mut leader_slot_metrics.packet_count_metrics;
             let PacketReceiverStats {
@@ -692,7 +692,10 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_exceeded_buffer_limit_dropped_packets_count(&mut self, count: u64) {
+    pub(crate) const fn increment_exceeded_buffer_limit_dropped_packets_count(
+        &mut self,
+        count: u64,
+    ) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics
@@ -703,7 +706,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_newly_buffered_packets_count(&mut self, count: u64) {
+    pub(crate) const fn increment_newly_buffered_packets_count(&mut self, count: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics
@@ -714,7 +717,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_retryable_packets_filtered_count(&mut self, count: u64) {
+    pub(crate) const fn increment_retryable_packets_filtered_count(&mut self, count: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics
@@ -725,7 +728,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_retryable_packets_count(&mut self, count: u64) {
+    pub(crate) const fn increment_retryable_packets_count(&mut self, count: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics
@@ -736,7 +739,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn set_end_of_slot_unprocessed_buffer_len(&mut self, len: u64) {
+    pub(crate) const fn set_end_of_slot_unprocessed_buffer_len(&mut self, len: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             leader_slot_metrics
                 .packet_count_metrics
@@ -745,7 +748,7 @@ impl LeaderSlotMetricsTracker {
     }
 
     // Outermost banking thread's loop timing metrics
-    pub(crate) fn increment_process_buffered_packets_us(&mut self, us: u64) {
+    pub(crate) const fn increment_process_buffered_packets_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics
@@ -757,7 +760,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_receive_and_buffer_packets_us(&mut self, us: u64) {
+    pub(crate) const fn increment_receive_and_buffer_packets_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics
@@ -777,7 +780,7 @@ impl LeaderSlotMetricsTracker {
     }
 
     // Processing buffer timing metrics
-    pub(crate) fn increment_make_decision_us(&mut self, us: u64) {
+    pub(crate) const fn increment_make_decision_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             leader_slot_metrics
                 .timing_metrics
@@ -786,7 +789,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_consume_buffered_packets_us(&mut self, us: u64) {
+    pub(crate) const fn increment_consume_buffered_packets_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             leader_slot_metrics
                 .timing_metrics
@@ -795,7 +798,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_process_packets_transactions_us(&mut self, us: u64) {
+    pub(crate) const fn increment_process_packets_transactions_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             leader_slot_metrics
                 .timing_metrics
@@ -805,7 +808,7 @@ impl LeaderSlotMetricsTracker {
     }
 
     // Processing packets timing metrics
-    pub(crate) fn increment_transactions_from_packets_us(&mut self, us: u64) {
+    pub(crate) const fn increment_transactions_from_packets_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             leader_slot_metrics
                 .timing_metrics
@@ -814,7 +817,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_process_transactions_us(&mut self, us: u64) {
+    pub(crate) const fn increment_process_transactions_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             leader_slot_metrics
                 .timing_metrics
@@ -823,7 +826,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_filter_retryable_packets_us(&mut self, us: u64) {
+    pub(crate) const fn increment_filter_retryable_packets_us(&mut self, us: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             leader_slot_metrics
                 .timing_metrics
@@ -832,7 +835,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_dropped_gossip_vote_count(&mut self, count: u64) {
+    pub(crate) const fn increment_dropped_gossip_vote_count(&mut self, count: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics
@@ -843,7 +846,7 @@ impl LeaderSlotMetricsTracker {
         }
     }
 
-    pub(crate) fn increment_dropped_tpu_vote_count(&mut self, count: u64) {
+    pub(crate) const fn increment_dropped_tpu_vote_count(&mut self, count: u64) {
         if let Some(leader_slot_metrics) = &mut self.leader_slot_metrics {
             saturating_add_assign!(
                 leader_slot_metrics

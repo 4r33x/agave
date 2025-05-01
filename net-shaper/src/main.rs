@@ -357,7 +357,7 @@ fn identify_my_partition(partitions: &[u8], index: u64, size: u64) -> usize {
     my_partition
 }
 
-fn partition_id_to_tos(partition: usize) -> u8 {
+const fn partition_id_to_tos(partition: usize) -> u8 {
     if partition < 4 {
         2u8.pow(partition as u32 + 1)
     } else {

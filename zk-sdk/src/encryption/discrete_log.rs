@@ -130,7 +130,7 @@ impl DiscreteLog {
     }
 
     /// Adjusts inversion batch size in a discrete log instance.
-    pub fn set_compression_batch_size(
+    pub const fn set_compression_batch_size(
         &mut self,
         compression_batch_size: NonZeroUsize,
     ) -> Result<(), DiscreteLogError> {
@@ -238,7 +238,7 @@ struct RistrettoIterator {
 }
 
 impl RistrettoIterator {
-    fn new(current: (RistrettoPoint, u64), step: (RistrettoPoint, u64)) -> Self {
+    const fn new(current: (RistrettoPoint, u64), step: (RistrettoPoint, u64)) -> Self {
         RistrettoIterator { current, step }
     }
 }

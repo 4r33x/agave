@@ -115,14 +115,14 @@ pub struct Vote {
 }
 
 impl Vote {
-    pub fn new(fork: Fork, time: usize) -> Vote {
+    pub const fn new(fork: Fork, time: usize) -> Vote {
         Self {
             fork,
             time,
             lockout: 2,
         }
     }
-    pub fn lock_height(&self) -> usize {
+    pub const fn lock_height(&self) -> usize {
         self.time + self.lockout
     }
     pub fn is_trunk_of(&self, other: &Vote, fork_tree: &HashMap<usize, Fork>) -> bool {

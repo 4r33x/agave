@@ -177,7 +177,7 @@ impl CostModel {
     }
 
     /// Returns the total write-lock cost.
-    fn get_write_lock_cost(num_write_locks: u64) -> u64 {
+    const fn get_write_lock_cost(num_write_locks: u64) -> u64 {
         WRITE_LOCK_UNITS.saturating_mul(num_write_locks)
     }
 

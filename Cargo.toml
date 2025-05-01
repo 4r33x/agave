@@ -188,6 +188,7 @@ arithmetic_side_effects = "deny"
 default_trait_access = "deny"
 manual_let_else = "deny"
 used_underscore_binding = "deny"
+missing_const_for_fn = "deny"
 
 [workspace.dependencies]
 Inflector = "0.11.4"

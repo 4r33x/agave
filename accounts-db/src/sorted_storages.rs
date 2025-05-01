@@ -41,15 +41,15 @@ impl<'a> SortedStorages<'a> {
         self.storages.get(&slot).copied()
     }
 
-    pub fn range_width(&self) -> Slot {
+    pub const fn range_width(&self) -> Slot {
         self.range.end - self.range.start
     }
 
-    pub fn range(&self) -> &Range<Slot> {
+    pub const fn range(&self) -> &Range<Slot> {
         &self.range
     }
 
-    pub fn max_slot_inclusive(&self) -> Slot {
+    pub const fn max_slot_inclusive(&self) -> Slot {
         self.range.end.saturating_sub(1)
     }
 

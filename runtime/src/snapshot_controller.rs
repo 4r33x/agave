@@ -31,7 +31,7 @@ pub struct SnapshotController {
 }
 
 impl SnapshotController {
-    pub fn new(
+    pub const fn new(
         abs_request_sender: SnapshotRequestSender,
         snapshot_config: SnapshotConfig,
         root_slot: Slot,
@@ -43,11 +43,11 @@ impl SnapshotController {
         }
     }
 
-    pub fn snapshot_config(&self) -> &SnapshotConfig {
+    pub const fn snapshot_config(&self) -> &SnapshotConfig {
         &self.snapshot_config
     }
 
-    pub fn request_sender(&self) -> &SnapshotRequestSender {
+    pub const fn request_sender(&self) -> &SnapshotRequestSender {
         &self.abs_request_sender
     }
 

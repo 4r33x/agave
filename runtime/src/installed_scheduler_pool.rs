@@ -257,7 +257,7 @@ pub struct SchedulingContext {
 }
 
 impl SchedulingContext {
-    pub fn for_preallocation() -> Self {
+    pub const fn for_preallocation() -> Self {
         Self {
             mode: SchedulingMode::BlockProduction,
             bank: None,
@@ -265,7 +265,7 @@ impl SchedulingContext {
     }
 
     #[cfg_attr(feature = "dev-context-only-utils", qualifiers(pub))]
-    pub(crate) fn new_with_mode(mode: SchedulingMode, bank: Arc<Bank>) -> Self {
+    pub(crate) const fn new_with_mode(mode: SchedulingMode, bank: Arc<Bank>) -> Self {
         Self {
             mode,
             bank: Some(bank),
@@ -273,24 +273,24 @@ impl SchedulingContext {
     }
 
     #[cfg_attr(feature = "dev-context-only-utils", qualifiers(pub))]
-    fn for_verification(bank: Arc<Bank>) -> Self {
+    const fn for_verification(bank: Arc<Bank>) -> Self {
         Self::new_with_mode(SchedulingMode::BlockVerification, bank)
     }
 
     #[cfg(feature = "dev-context-only-utils")]
-    pub fn for_production(bank: Arc<Bank>) -> Self {
+    pub const fn for_production(bank: Arc<Bank>) -> Self {
         Self::new_with_mode(SchedulingMode::BlockProduction, bank)
     }
 
-    pub fn is_preallocated(&self) -> bool {
+    pub const fn is_preallocated(&self) -> bool {
         self.bank.is_none()
     }
 
-    pub fn mode(&self) -> SchedulingMode {
+    pub const fn mode(&self) -> SchedulingMode {
         self.mode
     }
 
-    pub fn bank(&self) -> Option<&Arc<Bank>> {
+    pub const fn bank(&self) -> Option<&Arc<Bank>> {
         self.bank.as_ref()
     }
 
@@ -321,7 +321,7 @@ enum WaitReason {
 }
 
 impl WaitReason {
-    pub fn is_paused(&self) -> bool {
+    pub const fn is_paused(&self) -> bool {
         // Exhaustive `match` is preferred here than `matches!()` to trigger an explicit
         // decision to be made, should we add new variants like `PausedForFooBar`...
         match self {
@@ -330,7 +330,7 @@ impl WaitReason {
         }
     }
 
-    pub fn is_dropped(&self) -> bool {
+    pub const fn is_dropped(&self) -> bool {
         // Exhaustive `match` is preferred here than `matches!()` to trigger an explicit
         // decision to be made, should we add new variants like `PausedForFooBar`...
         match self {

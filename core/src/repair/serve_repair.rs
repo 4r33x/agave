@@ -103,7 +103,7 @@ pub enum ShredRepairType {
 }
 
 impl ShredRepairType {
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         match self {
             ShredRepairType::Orphan(slot)
             | ShredRepairType::HighestShred(slot, _)
@@ -143,7 +143,7 @@ impl RequestResponse for ShredRepairType {
 #[derive(Copy, Clone)]
 pub struct AncestorHashesRepairType(pub Slot);
 impl AncestorHashesRepairType {
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         self.0
     }
 }
@@ -279,7 +279,7 @@ pub(crate) enum RepairResponse {
 }
 
 impl RepairProtocol {
-    fn sender(&self) -> Option<&Pubkey> {
+    const fn sender(&self) -> Option<&Pubkey> {
         match self {
             Self::LegacyWindowIndex
             | Self::LegacyHighestWindowIndex
@@ -296,7 +296,7 @@ impl RepairProtocol {
         }
     }
 
-    fn supports_signature(&self) -> bool {
+    const fn supports_signature(&self) -> bool {
         match self {
             Self::LegacyWindowIndex
             | Self::LegacyHighestWindowIndex
@@ -313,7 +313,7 @@ impl RepairProtocol {
         }
     }
 
-    fn max_response_packets(&self) -> usize {
+    const fn max_response_packets(&self) -> usize {
         match self {
             RepairProtocol::WindowIndex { .. }
             | RepairProtocol::HighestWindowIndex { .. }
@@ -330,7 +330,7 @@ impl RepairProtocol {
         }
     }
 
-    fn max_response_bytes(&self) -> usize {
+    const fn max_response_bytes(&self) -> usize {
         self.max_response_packets() * PACKET_DATA_SIZE
     }
 }
@@ -1401,7 +1401,7 @@ impl ServeRepair {
 }
 
 #[inline]
-pub(crate) fn get_repair_protocol(_: ClusterType) -> Protocol {
+pub(crate) const fn get_repair_protocol(_: ClusterType) -> Protocol {
     Protocol::UDP
 }
 

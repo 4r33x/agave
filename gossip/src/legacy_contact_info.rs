@@ -110,17 +110,17 @@ impl Default for LegacyContactInfo {
 
 impl LegacyContactInfo {
     #[inline]
-    pub(crate) fn pubkey(&self) -> &Pubkey {
+    pub(crate) const fn pubkey(&self) -> &Pubkey {
         &self.id
     }
 
     #[inline]
-    pub(crate) fn wallclock(&self) -> u64 {
+    pub(crate) const fn wallclock(&self) -> u64 {
         self.wallclock
     }
 
     #[inline]
-    pub(crate) fn shred_version(&self) -> u16 {
+    pub(crate) const fn shred_version(&self) -> u16 {
         self.shred_version
     }
 
@@ -138,7 +138,7 @@ impl LegacyContactInfo {
     get_socket!(rpc_pubsub);
     get_socket!(serve_repair, serve_repair_quic);
 
-    fn is_valid_ip(addr: IpAddr) -> bool {
+    const fn is_valid_ip(addr: IpAddr) -> bool {
         !(addr.is_unspecified() || addr.is_multicast())
         // || (addr.is_loopback() && !cfg_test))
         // TODO: boot loopback in production networks

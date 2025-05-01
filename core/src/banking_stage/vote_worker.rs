@@ -52,7 +52,7 @@ pub struct VoteWorker {
 }
 
 impl VoteWorker {
-    pub fn new(
+    pub const fn new(
         decision_maker: DecisionMaker,
         tpu_receiver: PacketReceiver,
         gossip_receiver: PacketReceiver,

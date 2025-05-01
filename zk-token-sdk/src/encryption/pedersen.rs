@@ -75,11 +75,11 @@ impl Pedersen {
 #[zeroize(drop)]
 pub struct PedersenOpening(Scalar);
 impl PedersenOpening {
-    pub fn new(scalar: Scalar) -> Self {
+    pub const fn new(scalar: Scalar) -> Self {
         Self(scalar)
     }
 
-    pub fn get_scalar(&self) -> &Scalar {
+    pub const fn get_scalar(&self) -> &Scalar {
         &self.0
     }
 
@@ -88,11 +88,11 @@ impl PedersenOpening {
         PedersenOpening(Scalar::random(&mut OsRng))
     }
 
-    pub fn as_bytes(&self) -> &[u8; PEDERSEN_OPENING_LEN] {
+    pub const fn as_bytes(&self) -> &[u8; PEDERSEN_OPENING_LEN] {
         self.0.as_bytes()
     }
 
-    pub fn to_bytes(&self) -> [u8; PEDERSEN_OPENING_LEN] {
+    pub const fn to_bytes(&self) -> [u8; PEDERSEN_OPENING_LEN] {
         self.0.to_bytes()
     }
 
@@ -177,11 +177,11 @@ define_mul_variants!(
 #[derive(Clone, Copy, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct PedersenCommitment(RistrettoPoint);
 impl PedersenCommitment {
-    pub fn new(point: RistrettoPoint) -> Self {
+    pub const fn new(point: RistrettoPoint) -> Self {
         Self(point)
     }
 
-    pub fn get_point(&self) -> &RistrettoPoint {
+    pub const fn get_point(&self) -> &RistrettoPoint {
         &self.0
     }
 

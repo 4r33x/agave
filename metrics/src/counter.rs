@@ -31,7 +31,7 @@ pub struct CounterPoint {
 }
 
 impl CounterPoint {
-    pub fn new(name: &'static str) -> Self {
+    pub const fn new(name: &'static str) -> Self {
         CounterPoint {
             name,
             count: 0,
@@ -208,12 +208,12 @@ mod tests {
         serial_test::serial,
         std::{
             env,
-            sync::{atomic::Ordering, LazyLock, RwLock},
+            sync::{atomic::Ordering, RwLock},
         },
     };
 
     fn get_env_lock() -> &'static RwLock<()> {
-        static ENV_LOCK: LazyLock<RwLock<()>> = LazyLock::new(|| RwLock::new(()));
+        static ENV_LOCK: RwLock<()> = RwLock::new(());
 
         &ENV_LOCK
     }

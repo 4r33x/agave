@@ -23,15 +23,15 @@ impl Measure {
         self.duration = self.start.elapsed().as_nanos() as u64;
     }
 
-    pub fn as_ns(&self) -> u64 {
+    pub const fn as_ns(&self) -> u64 {
         self.duration
     }
 
-    pub fn as_us(&self) -> u64 {
+    pub const fn as_us(&self) -> u64 {
         self.duration / 1000
     }
 
-    pub fn as_ms(&self) -> u64 {
+    pub const fn as_ms(&self) -> u64 {
         self.duration / (1000 * 1000)
     }
 

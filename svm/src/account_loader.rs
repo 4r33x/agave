@@ -77,7 +77,7 @@ impl Default for CheckedTransactionDetails {
 }
 
 impl CheckedTransactionDetails {
-    pub fn new(
+    pub const fn new(
         nonce: Option<NonceInfo>,
         compute_budget_and_limits: Result<SVMTransactionExecutionAndFeeBudgetLimits>,
     ) -> Self {

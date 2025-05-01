@@ -112,7 +112,7 @@ pub struct LedgerColumnOptions {
 }
 
 impl LedgerColumnOptions {
-    pub fn get_compression_type_string(&self) -> &'static str {
+    pub const fn get_compression_type_string(&self) -> &'static str {
         match self.compression_type {
             BlockstoreCompressionType::None => "None",
             BlockstoreCompressionType::Snappy => "Snappy",
@@ -137,7 +137,7 @@ impl Default for BlockstoreCompressionType {
 }
 
 impl BlockstoreCompressionType {
-    pub(crate) fn to_rocksdb_compression_type(&self) -> RocksCompressionType {
+    pub(crate) const fn to_rocksdb_compression_type(&self) -> RocksCompressionType {
         match self {
             Self::None => RocksCompressionType::None,
             Self::Snappy => RocksCompressionType::Snappy,

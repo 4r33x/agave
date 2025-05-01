@@ -31,7 +31,7 @@ impl Default for PartitionedEpochRewardsConfig {
 
 impl PartitionedEpochRewardsConfig {
     /// Only for tests and benchmarks
-    pub fn new_for_test(stake_account_stores_per_block: u64) -> Self {
+    pub const fn new_for_test(stake_account_stores_per_block: u64) -> Self {
         Self {
             stake_account_stores_per_block,
         }

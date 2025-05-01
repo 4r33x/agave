@@ -176,7 +176,7 @@ impl ElGamalKeypair {
     /// An ElGamal keypair should never be instantiated manually; `ElGamalKeypair::new_rand` or
     /// `ElGamalKeypair::new_from_signer` should be used instead. This function exists to create
     /// custom ElGamal keypairs for tests.
-    pub fn new_for_tests(public: ElGamalPubkey, secret: ElGamalSecretKey) -> Self {
+    pub const fn new_for_tests(public: ElGamalPubkey, secret: ElGamalSecretKey) -> Self {
         Self { public, secret }
     }
 
@@ -211,11 +211,11 @@ impl ElGamalKeypair {
         ElGamal::keygen()
     }
 
-    pub fn pubkey(&self) -> &ElGamalPubkey {
+    pub const fn pubkey(&self) -> &ElGamalPubkey {
         &self.public
     }
 
-    pub fn secret(&self) -> &ElGamalSecretKey {
+    pub const fn secret(&self) -> &ElGamalSecretKey {
         &self.secret
     }
 
@@ -361,7 +361,7 @@ impl ElGamalPubkey {
         ElGamalPubkey(s.invert() * &(*H))
     }
 
-    pub fn get_point(&self) -> &RistrettoPoint {
+    pub const fn get_point(&self) -> &RistrettoPoint {
         &self.0
     }
 
@@ -526,7 +526,7 @@ impl ElGamalSecretKey {
         Ok(ElGamalSecretKey(Scalar::hash_from_bytes::<Sha3_512>(seed)))
     }
 
-    pub fn get_scalar(&self) -> &Scalar {
+    pub const fn get_scalar(&self) -> &Scalar {
         &self.0
     }
 
@@ -543,12 +543,12 @@ impl ElGamalSecretKey {
         ElGamal::decrypt_u32(self, ciphertext)
     }
 
-    pub fn as_bytes(&self) -> &[u8; ELGAMAL_SECRET_KEY_LEN] {
+    pub const fn as_bytes(&self) -> &[u8; ELGAMAL_SECRET_KEY_LEN] {
         self.0.as_bytes()
     }
 
     #[deprecated(since = "2.0.0", note = "please use `into()` instead")]
-    pub fn to_bytes(&self) -> [u8; ELGAMAL_SECRET_KEY_LEN] {
+    pub const fn to_bytes(&self) -> [u8; ELGAMAL_SECRET_KEY_LEN] {
         self.0.to_bytes()
     }
 
@@ -792,7 +792,7 @@ impl DecryptHandle {
         Self(&public.0 * opening.get_scalar())
     }
 
-    pub fn get_point(&self) -> &RistrettoPoint {
+    pub const fn get_point(&self) -> &RistrettoPoint {
         &self.0
     }
 

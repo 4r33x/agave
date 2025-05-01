@@ -54,21 +54,21 @@ impl EpochStakes {
             leader_schedule_epoch,
         )
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     pub fn stakes(&self) -> &StakesEnum {
         &self.stakes
     }
 
-    pub fn total_stake(&self) -> u64 {
+    pub const fn total_stake(&self) -> u64 {
         self.total_stake
     }
 
     /// For tests
-    pub fn set_total_stake(&mut self, total_stake: u64) {
+    pub const fn set_total_stake(&mut self, total_stake: u64) {
         self.total_stake = total_stake;
     }
 
-    pub fn node_id_to_vote_accounts(&self) -> &Arc<NodeIdToVoteAccounts> {
+    pub const fn node_id_to_vote_accounts(&self) -> &Arc<NodeIdToVoteAccounts> {
         &self.node_id_to_vote_accounts
     }
 
@@ -78,7 +78,7 @@ impl EpochStakes {
             .map(|x| x.total_stake)
     }
 
-    pub fn epoch_authorized_voters(&self) -> &Arc<EpochAuthorizedVoters> {
+    pub const fn epoch_authorized_voters(&self) -> &Arc<EpochAuthorizedVoters> {
         &self.epoch_authorized_voters
     }
 

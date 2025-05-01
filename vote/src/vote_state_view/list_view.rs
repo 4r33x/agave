@@ -16,7 +16,7 @@ impl<'a, F: ListFrame> ListView<'a, F> {
         self.frame.len()
     }
 
-    pub(super) fn into_iter(self) -> ListViewIter<'a, F>
+    pub(super) const fn into_iter(self) -> ListViewIter<'a, F>
     where
         Self: Sized,
     {

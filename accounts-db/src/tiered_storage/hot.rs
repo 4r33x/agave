@@ -70,7 +70,7 @@ pub(crate) const HOT_BLOCK_ALIGNMENT: usize = 8;
 const MAX_HOT_ACCOUNT_OFFSET: usize = u32::MAX as usize * HOT_ACCOUNT_ALIGNMENT;
 
 // returns the required number of padding
-fn padding_bytes(data_len: usize) -> u8 {
+const fn padding_bytes(data_len: usize) -> u8 {
     ((HOT_ACCOUNT_ALIGNMENT - (data_len % HOT_ACCOUNT_ALIGNMENT)) % HOT_ACCOUNT_ALIGNMENT) as u8
 }
 
@@ -113,7 +113,7 @@ impl AccountOffset for HotAccountOffset {}
 
 impl HotAccountOffset {
     /// Creates a new AccountOffset instance
-    pub fn new(offset: usize) -> TieredStorageResult<Self> {
+    pub const fn new(offset: usize) -> TieredStorageResult<Self> {
         if offset > MAX_HOT_ACCOUNT_OFFSET {
             return Err(TieredStorageError::OffsetOutOfBounds(
                 offset,
@@ -133,7 +133,7 @@ impl HotAccountOffset {
     }
 
     /// Returns the offset to the account.
-    fn offset(&self) -> usize {
+    const fn offset(&self) -> usize {
         self.0 as usize * HOT_ACCOUNT_ALIGNMENT
     }
 }
@@ -302,12 +302,12 @@ pub struct HotAccount<'accounts_file, M: TieredAccountMeta> {
 
 impl<'accounts_file, M: TieredAccountMeta> HotAccount<'accounts_file, M> {
     /// Returns the address of this account.
-    pub fn address(&self) -> &'accounts_file Pubkey {
+    pub const fn address(&self) -> &'accounts_file Pubkey {
         self.address
     }
 
     /// Returns the index to this account in its AccountsFile.
-    pub fn index(&self) -> IndexOffset {
+    pub const fn index(&self) -> IndexOffset {
         self.index
     }
 
@@ -372,7 +372,7 @@ impl HotStorageReader {
 
         Ok(Self { mmap, footer })
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     /// Returns the size of the underlying storage.
     pub fn len(&self) -> usize {
         self.mmap.len()
@@ -388,13 +388,13 @@ impl HotStorageReader {
     }
 
     /// Returns the footer of the underlying tiered-storage accounts file.
-    pub fn footer(&self) -> &TieredStorageFooter {
+    pub const fn footer(&self) -> &TieredStorageFooter {
         &self.footer
     }
 
     /// Returns the number of files inside the underlying tiered-storage
     /// accounts file.
-    pub fn num_accounts(&self) -> usize {
+    pub const fn num_accounts(&self) -> usize {
         self.footer.account_entry_count as usize
     }
 
@@ -680,7 +680,7 @@ impl HotStorageReader {
 
 /// return an approximation of the cost to store an account.
 /// Some fields like owner are shared across multiple accounts.
-fn stored_size(data_len: usize) -> usize {
+const fn stored_size(data_len: usize) -> usize {
     data_len + std::mem::size_of::<Pubkey>()
 }
 

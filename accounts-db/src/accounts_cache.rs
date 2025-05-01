@@ -141,7 +141,7 @@ impl CachedAccount {
             }
         }
     }
-    pub fn pubkey(&self) -> &Pubkey {
+    pub const fn pubkey(&self) -> &Pubkey {
         &self.pubkey
     }
 }

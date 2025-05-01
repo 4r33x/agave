@@ -26,7 +26,7 @@ impl SchedulerCountMetrics {
         self.interval.maybe_report_and_reset(should_report);
     }
 
-    pub fn interval_has_data(&self) -> bool {
+    pub const fn interval_has_data(&self) -> bool {
         self.interval.metrics.has_data()
     }
 }
@@ -158,7 +158,7 @@ impl SchedulerCountMetricsInner {
         solana_metrics::submit(datapoint, log::Level::Info);
     }
 
-    fn has_data(&self) -> bool {
+    const fn has_data(&self) -> bool {
         self.num_received != 0
             || self.num_buffered != 0
             || self.num_scheduled != 0
@@ -176,7 +176,7 @@ impl SchedulerCountMetricsInner {
             || self.num_dropped_on_capacity != 0
     }
 
-    fn reset(&mut self) {
+    const fn reset(&mut self) {
         self.num_received = 0;
         self.num_buffered = 0;
         self.num_scheduled = 0;
@@ -196,7 +196,7 @@ impl SchedulerCountMetricsInner {
         self.max_prioritization_fees = 0;
     }
 
-    pub fn update_priority_stats(&mut self, min_max_fees: MinMaxResult<u64>) {
+    pub const fn update_priority_stats(&mut self, min_max_fees: MinMaxResult<u64>) {
         // update min/max priority
         match min_max_fees {
             itertools::MinMaxResult::NoElements => {
@@ -213,7 +213,7 @@ impl SchedulerCountMetricsInner {
         }
     }
 
-    fn get_min_priority(&self) -> u64 {
+    const fn get_min_priority(&self) -> u64 {
         // to avoid getting u64::max recorded by metrics / in case of edge cases
         if self.min_prioritization_fees != u64::MAX {
             self.min_prioritization_fees
@@ -222,7 +222,7 @@ impl SchedulerCountMetricsInner {
         }
     }
 
-    fn get_max_priority(&self) -> u64 {
+    const fn get_max_priority(&self) -> u64 {
         self.max_prioritization_fees
     }
 }
@@ -329,7 +329,7 @@ impl SchedulerTimingMetricsInner {
         solana_metrics::submit(datapoint, log::Level::Info);
     }
 
-    fn reset(&mut self) {
+    const fn reset(&mut self) {
         self.decision_time_us = 0;
         self.receive_time_us = 0;
         self.buffer_time_us = 0;

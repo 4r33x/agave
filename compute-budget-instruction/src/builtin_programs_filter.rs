@@ -29,7 +29,7 @@ pub(crate) struct BuiltinProgramsFilter {
 }
 
 impl BuiltinProgramsFilter {
-    pub(crate) fn new() -> Self {
+    pub(crate) const fn new() -> Self {
         BuiltinProgramsFilter {
             program_kind: [None; FILTER_SIZE as usize],
         }

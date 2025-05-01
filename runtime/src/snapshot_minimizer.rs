@@ -381,6 +381,7 @@ impl<'a> SnapshotMinimizer<'a> {
             .purge_slots_from_cache_and_store(dead_slots.iter(), &stats, false);
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     /// Convenience function for getting accounts_db
     fn accounts_db(&self) -> &AccountsDb {
         &self.bank.rc.accounts.accounts_db

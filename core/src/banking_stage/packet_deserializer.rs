@@ -45,7 +45,7 @@ pub struct PacketReceiverStats {
 }
 
 impl PacketReceiverStats {
-    pub fn increment_error_count(&mut self, err: &DeserializedPacketError) {
+    pub const fn increment_error_count(&mut self, err: &DeserializedPacketError) {
         match err {
             DeserializedPacketError::ShortVecError(..)
             | DeserializedPacketError::DeserializationError(..)
@@ -72,7 +72,7 @@ impl PacketReceiverStats {
 }
 
 impl PacketDeserializer {
-    pub fn new(packet_batch_receiver: BankingPacketReceiver) -> Self {
+    pub const fn new(packet_batch_receiver: BankingPacketReceiver) -> Self {
         Self {
             packet_batch_receiver,
         }

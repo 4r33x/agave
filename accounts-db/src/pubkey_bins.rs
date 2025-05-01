@@ -29,7 +29,7 @@ impl PubkeyBinCalculator24 {
         }
     }
 
-    pub fn bins(&self) -> usize {
+    pub const fn bins(&self) -> usize {
         1 << (Self::MAX_BITS - self.shift_bits)
     }
 

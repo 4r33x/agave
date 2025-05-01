@@ -113,7 +113,7 @@ impl Pong {
         }
     }
 
-    pub fn from(&self) -> &Pubkey {
+    pub const fn from(&self) -> &Pubkey {
         &self.from
     }
 }

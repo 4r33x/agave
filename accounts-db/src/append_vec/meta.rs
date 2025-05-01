@@ -73,31 +73,31 @@ pub struct StoredAccountMeta<'append_vec> {
 }
 
 impl<'append_vec> StoredAccountMeta<'append_vec> {
-    pub fn pubkey(&self) -> &'append_vec Pubkey {
+    pub const fn pubkey(&self) -> &'append_vec Pubkey {
         &self.meta.pubkey
     }
 
-    pub fn hash(&self) -> &'append_vec AccountHash {
+    pub const fn hash(&self) -> &'append_vec AccountHash {
         self.hash
     }
 
-    pub fn stored_size(&self) -> usize {
+    pub const fn stored_size(&self) -> usize {
         self.stored_size
     }
 
-    pub fn offset(&self) -> usize {
+    pub const fn offset(&self) -> usize {
         self.offset
     }
 
-    pub fn data(&self) -> &'append_vec [u8] {
+    pub const fn data(&self) -> &'append_vec [u8] {
         self.data
     }
 
-    pub fn data_len(&self) -> usize {
+    pub const fn data_len(&self) -> usize {
         self.meta.data_len as usize
     }
 
-    pub fn meta(&self) -> &StoredMeta {
+    pub const fn meta(&self) -> &StoredMeta {
         self.meta
     }
 }
@@ -136,17 +136,17 @@ pub struct StoredAccountNoData<'append_vec> {
 
 impl<'append_vec> StoredAccountNoData<'append_vec> {
     #[inline(always)]
-    pub fn lamports(&self) -> u64 {
+    pub const fn lamports(&self) -> u64 {
         self.account_meta.lamports
     }
 
     #[inline(always)]
-    pub fn owner(&self) -> &'append_vec Pubkey {
+    pub const fn owner(&self) -> &'append_vec Pubkey {
         &self.account_meta.owner
     }
 
     #[inline(always)]
-    pub fn pubkey(&self) -> &'append_vec Pubkey {
+    pub const fn pubkey(&self) -> &'append_vec Pubkey {
         &self.meta.pubkey
     }
 
@@ -155,27 +155,27 @@ impl<'append_vec> StoredAccountNoData<'append_vec> {
     }
 
     #[inline(always)]
-    pub fn offset(&self) -> usize {
+    pub const fn offset(&self) -> usize {
         self.offset
     }
 
     #[inline(always)]
-    pub fn stored_size(&self) -> usize {
+    pub const fn stored_size(&self) -> usize {
         self.stored_size
     }
 
     #[inline(always)]
-    pub fn data_len(&self) -> u64 {
+    pub const fn data_len(&self) -> u64 {
         self.meta.data_len
     }
 
     #[inline(always)]
-    pub fn executable(&self) -> bool {
+    pub const fn executable(&self) -> bool {
         self.account_meta.executable
     }
 
     #[inline(always)]
-    pub fn rent_epoch(&self) -> Epoch {
+    pub const fn rent_epoch(&self) -> Epoch {
         self.account_meta.rent_epoch
     }
 
@@ -201,7 +201,7 @@ impl<'append_vec> StoredAccountNoData<'append_vec> {
         self.account_meta.lamports != 0 || self.is_default_account()
     }
 
-    pub fn ref_executable_byte(&self) -> &u8 {
+    pub const fn ref_executable_byte(&self) -> &u8 {
         // Use extra references to avoid value silently clamped to 1 (=true) and 0 (=false)
         // Yes, this really happens; see test_new_from_file_crafted_executable
         let executable_bool: &bool = &self.account_meta.executable;

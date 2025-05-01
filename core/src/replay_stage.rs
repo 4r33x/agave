@@ -144,11 +144,11 @@ enum GenerateVoteTxResult {
 }
 
 impl GenerateVoteTxResult {
-    fn is_non_voting(&self) -> bool {
+    const fn is_non_voting(&self) -> bool {
         matches!(self, Self::NonVoting)
     }
 
-    fn is_hot_spare(&self) -> bool {
+    const fn is_hot_spare(&self) -> bool {
         matches!(self, Self::HotSpare)
     }
 }
@@ -160,7 +160,7 @@ struct Finalizer {
 }
 
 impl Finalizer {
-    fn new(exit_sender: Arc<AtomicBool>) -> Self {
+    const fn new(exit_sender: Arc<AtomicBool>) -> Self {
         Finalizer { exit_sender }
     }
 }
@@ -194,7 +194,7 @@ struct PartitionInfo {
 }
 
 impl PartitionInfo {
-    fn new() -> Self {
+    const fn new() -> Self {
         Self {
             partition_start_time: None,
         }
@@ -2051,7 +2051,7 @@ impl ReplayStage {
             .0
     }
 
-    fn should_retransmit(poh_slot: Slot, last_retransmit_slot: &mut Slot) -> bool {
+    const fn should_retransmit(poh_slot: Slot, last_retransmit_slot: &mut Slot) -> bool {
         if poh_slot < *last_retransmit_slot
             || poh_slot >= *last_retransmit_slot + NUM_CONSECUTIVE_LEADER_SLOTS
         {

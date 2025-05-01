@@ -241,11 +241,11 @@ impl ClusterInfo {
         me
     }
 
-    pub fn set_contact_debug_interval(&mut self, new: u64) {
+    pub const fn set_contact_debug_interval(&mut self, new: u64) {
         self.contact_debug_interval = new;
     }
 
-    pub fn socket_addr_space(&self) -> &SocketAddrSpace {
+    pub const fn socket_addr_space(&self) -> &SocketAddrSpace {
         &self.socket_addr_space
     }
 
@@ -2904,7 +2904,7 @@ pub fn push_messages_to_peer_for_tests(
 // pull-request should be ignored and discarded.
 #[inline]
 #[must_use]
-fn check_pull_request_shred_version(self_shred_version: u16, caller: &CrdsValue) -> bool {
+const fn check_pull_request_shred_version(self_shred_version: u16, caller: &CrdsValue) -> bool {
     let shred_version = match caller.data() {
         CrdsData::ContactInfo(node) => node.shred_version(),
         CrdsData::LegacyContactInfo(node) => node.shred_version(),

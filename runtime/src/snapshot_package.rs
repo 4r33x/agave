@@ -365,10 +365,10 @@ pub enum SnapshotKind {
 }
 
 impl SnapshotKind {
-    pub fn is_full_snapshot(&self) -> bool {
+    pub const fn is_full_snapshot(&self) -> bool {
         matches!(self, SnapshotKind::FullSnapshot)
     }
-    pub fn is_incremental_snapshot(&self) -> bool {
+    pub const fn is_incremental_snapshot(&self) -> bool {
         matches!(self, SnapshotKind::IncrementalSnapshot(_))
     }
 }

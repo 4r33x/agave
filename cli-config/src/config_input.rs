@@ -29,7 +29,7 @@ impl ConfigInput {
         Config::default().websocket_url
     }
 
-    fn default_commitment() -> CommitmentConfig {
+    const fn default_commitment() -> CommitmentConfig {
         CommitmentConfig::confirmed()
     }
 

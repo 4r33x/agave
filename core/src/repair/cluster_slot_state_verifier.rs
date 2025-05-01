@@ -47,7 +47,7 @@ impl BankStatus {
         }
     }
 
-    fn new_dead() -> Self {
+    const fn new_dead() -> Self {
         BankStatus::Dead
     }
 
@@ -63,7 +63,7 @@ impl BankStatus {
         }
     }
 
-    fn bank_hash(&self) -> Option<Hash> {
+    const fn bank_hash(&self) -> Option<Hash> {
         match self {
             BankStatus::Frozen(hash) => Some(*hash),
             BankStatus::Dead => None,
@@ -71,7 +71,7 @@ impl BankStatus {
         }
     }
 
-    fn is_dead(&self) -> bool {
+    const fn is_dead(&self) -> bool {
         match self {
             BankStatus::Frozen(_) => false,
             BankStatus::Dead => true,
@@ -79,7 +79,7 @@ impl BankStatus {
         }
     }
 
-    fn can_be_further_replayed(&self) -> bool {
+    const fn can_be_further_replayed(&self) -> bool {
         match self {
             BankStatus::Unprocessed => true,
             BankStatus::Dead => false,
@@ -115,7 +115,10 @@ impl DeadState {
         Self::new(cluster_confirmed_hash, is_slot_duplicate)
     }
 
-    fn new(cluster_confirmed_hash: Option<ClusterConfirmedHash>, is_slot_duplicate: bool) -> Self {
+    const fn new(
+        cluster_confirmed_hash: Option<ClusterConfirmedHash>,
+        is_slot_duplicate: bool,
+    ) -> Self {
         Self {
             cluster_confirmed_hash,
             is_slot_duplicate,
@@ -183,7 +186,7 @@ impl DuplicateConfirmedState {
         Self::new(duplicate_confirmed_hash, bank_status)
     }
 
-    fn new(duplicate_confirmed_hash: Hash, bank_status: BankStatus) -> Self {
+    const fn new(duplicate_confirmed_hash: Hash, bank_status: BankStatus) -> Self {
         Self {
             duplicate_confirmed_hash,
             bank_status,
@@ -220,7 +223,7 @@ impl DuplicateState {
         Self::new(duplicate_confirmed_hash, bank_status)
     }
 
-    fn new(duplicate_confirmed_hash: Option<Hash>, bank_status: BankStatus) -> Self {
+    const fn new(duplicate_confirmed_hash: Option<Hash>, bank_status: BankStatus) -> Self {
         Self {
             duplicate_confirmed_hash,
             bank_status,
@@ -262,7 +265,7 @@ impl EpochSlotsFrozenState {
         )
     }
 
-    fn new(
+    const fn new(
         epoch_slots_frozen_hash: Hash,
         duplicate_confirmed_hash: Option<Hash>,
         bank_status: BankStatus,
@@ -276,7 +279,7 @@ impl EpochSlotsFrozenState {
         }
     }
 
-    fn is_popular_pruned(&self) -> bool {
+    const fn is_popular_pruned(&self) -> bool {
         self.is_popular_pruned
     }
 }
@@ -316,7 +319,7 @@ impl SlotStateUpdate {
         }
     }
 
-    fn can_be_further_replayed(&self) -> bool {
+    const fn can_be_further_replayed(&self) -> bool {
         match self {
             SlotStateUpdate::BankFrozen(_) => false,
             SlotStateUpdate::DuplicateConfirmed(duplicate_confirmed_state) => {

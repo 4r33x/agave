@@ -64,11 +64,11 @@ pub fn slot_leader_at(slot: Slot, bank: &Bank) -> Option<Pubkey> {
 
 // Returns the number of ticks remaining from the specified tick_height to the end of the
 // slot implied by the tick_height
-pub fn num_ticks_left_in_slot(bank: &Bank, tick_height: u64) -> u64 {
+pub const fn num_ticks_left_in_slot(bank: &Bank, tick_height: u64) -> u64 {
     bank.ticks_per_slot() - tick_height % bank.ticks_per_slot()
 }
 
-pub fn first_of_consecutive_leader_slots(slot: Slot) -> Slot {
+pub const fn first_of_consecutive_leader_slots(slot: Slot) -> Slot {
     (slot / NUM_CONSECUTIVE_LEADER_SLOTS) * NUM_CONSECUTIVE_LEADER_SLOTS
 }
 

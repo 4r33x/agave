@@ -20,7 +20,7 @@ pub struct StakeReward {
 }
 
 impl StakeReward {
-    pub fn get_stake_reward(&self) -> i64 {
+    pub const fn get_stake_reward(&self) -> i64 {
         self.stake_reward_info.lamports
     }
 }

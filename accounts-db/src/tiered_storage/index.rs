@@ -133,7 +133,7 @@ impl IndexBlockFormat {
     }
 
     /// Returns the size of one index entry.
-    pub fn entry_size<Offset: AccountOffset>(&self) -> usize {
+    pub const fn entry_size<Offset: AccountOffset>(&self) -> usize {
         match self {
             Self::AddressesThenOffsets => {
                 std::mem::size_of::<Pubkey>() + std::mem::size_of::<Offset>()

@@ -149,7 +149,10 @@ impl ReceiveAndBuffer for SanitizedTransactionReceiveAndBuffer {
 }
 
 impl SanitizedTransactionReceiveAndBuffer {
-    pub fn new(packet_receiver: PacketDeserializer, bank_forks: Arc<RwLock<BankForks>>) -> Self {
+    pub const fn new(
+        packet_receiver: PacketDeserializer,
+        bank_forks: Arc<RwLock<BankForks>>,
+    ) -> Self {
         Self {
             packet_receiver,
             bank_forks,

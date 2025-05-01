@@ -797,7 +797,7 @@ async fn prune_connection_cache(
 
 impl RemoteRequest {
     #[inline]
-    pub(crate) fn protocol(&self) -> Protocol {
+    pub(crate) const fn protocol(&self) -> Protocol {
         // remote_pubkey is only available with QUIC.
         if self.remote_pubkey.is_some() {
             Protocol::QUIC

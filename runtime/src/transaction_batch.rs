@@ -42,23 +42,23 @@ impl<'a, 'b, Tx: SVMMessage> TransactionBatch<'a, 'b, Tx> {
         }
     }
 
-    pub fn lock_results(&self) -> &Vec<Result<()>> {
+    pub const fn lock_results(&self) -> &Vec<Result<()>> {
         &self.lock_results
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     pub fn sanitized_transactions(&self) -> &[Tx] {
         &self.sanitized_txs
     }
 
-    pub fn bank(&self) -> &Bank {
+    pub const fn bank(&self) -> &Bank {
         self.bank
     }
 
-    pub fn set_needs_unlock(&mut self, needs_unlock: bool) {
+    pub const fn set_needs_unlock(&mut self, needs_unlock: bool) {
         self.needs_unlock = needs_unlock;
     }
 
-    pub fn needs_unlock(&self) -> bool {
+    pub const fn needs_unlock(&self) -> bool {
         self.needs_unlock
     }
 

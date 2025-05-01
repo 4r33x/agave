@@ -96,7 +96,7 @@ impl Debug for SendDroppedBankCallback {
 }
 
 impl SendDroppedBankCallback {
-    pub fn new(sender: DroppedSlotsSender) -> Self {
+    pub const fn new(sender: DroppedSlotsSender) -> Self {
         Self { sender }
     }
 }
@@ -691,7 +691,7 @@ impl AccountsBackgroundService {
     }
 
     /// Returns an object to query/manage the status of ABS
-    pub fn status(&self) -> &AbsStatus {
+    pub const fn status(&self) -> &AbsStatus {
         &self.status
     }
 }
@@ -779,7 +779,7 @@ fn cmp_requests_by_priority(a: &SnapshotRequest, b: &SnapshotRequest) -> std::cm
 /// - Full Snapshot
 /// - Incremental Snapshot
 #[must_use]
-fn cmp_snapshot_request_kinds_by_priority(
+const fn cmp_snapshot_request_kinds_by_priority(
     a: &SnapshotRequestKind,
     b: &SnapshotRequestKind,
 ) -> std::cmp::Ordering {

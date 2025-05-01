@@ -170,7 +170,7 @@ impl<T: Serialize + Clone> StatusCache<T> {
         self.purge_roots();
     }
 
-    pub fn roots(&self) -> &HashSet<Slot> {
+    pub const fn roots(&self) -> &HashSet<Slot> {
         &self.roots
     }
 

@@ -481,7 +481,7 @@ impl ProgramCacheEntry {
         tombstone
     }
 
-    pub fn is_tombstone(&self) -> bool {
+    pub const fn is_tombstone(&self) -> bool {
         matches!(
             self.program,
             ProgramCacheEntryType::FailedVerification(_)
@@ -490,7 +490,7 @@ impl ProgramCacheEntry {
         )
     }
 
-    fn is_implicit_delay_visibility_tombstone(&self, slot: Slot) -> bool {
+    const fn is_implicit_delay_visibility_tombstone(&self, slot: Slot) -> bool {
         !matches!(self.program, ProgramCacheEntryType::Builtin(_))
             && self.effective_slot.saturating_sub(self.deployment_slot)
                 == DELAY_VISIBILITY_SLOT_OFFSET
@@ -539,11 +539,11 @@ impl Default for ProgramRuntimeEnvironments {
 pub struct LoadingTaskCookie(u64);
 
 impl LoadingTaskCookie {
-    fn new() -> Self {
+    const fn new() -> Self {
         Self(0)
     }
 
-    fn update(&mut self) {
+    const fn update(&mut self) {
         let LoadingTaskCookie(cookie) = self;
         *cookie = cookie.wrapping_add(1);
     }
@@ -557,7 +557,7 @@ pub struct LoadingTaskWaiter {
 }
 
 impl LoadingTaskWaiter {
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         Self {
             cookie: Mutex::new(LoadingTaskCookie::new()),
             cond: Condvar::new(),
@@ -723,7 +723,7 @@ impl ProgramCacheForTxBatch {
     }
 
     /// Returns the current environments depending on the given epoch
-    pub fn get_environments_for_epoch(&self, epoch: Epoch) -> &ProgramRuntimeEnvironments {
+    pub const fn get_environments_for_epoch(&self, epoch: Epoch) -> &ProgramRuntimeEnvironments {
         if epoch != self.latest_root_epoch {
             if let Some(upcoming_environments) = self.upcoming_environments.as_ref() {
                 return upcoming_environments;
@@ -780,11 +780,11 @@ impl ProgramCacheForTxBatch {
             })
     }
 
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         self.slot
     }
 
-    pub fn set_slot_for_tests(&mut self, slot: Slot) {
+    pub const fn set_slot_for_tests(&mut self, slot: Slot) {
         self.slot = slot;
     }
 
@@ -1036,7 +1036,7 @@ impl<FG: ForkGraph> ProgramCache<FG> {
         Arc::ptr_eq(environment, &environments.program_runtime_v1)
             || Arc::ptr_eq(environment, &environments.program_runtime_v2)
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     fn matches_criteria(
         program: &Arc<ProgramCacheEntry>,
         criteria: &ProgramCacheMatchCriteria,

@@ -80,7 +80,7 @@ pub enum CrdsValueLabel {
 }
 
 impl CrdsValueLabel {
-    pub fn pubkey(&self) -> Pubkey {
+    pub const fn pubkey(&self) -> Pubkey {
         match self {
             CrdsValueLabel::LegacyContactInfo(p) => *p,
             CrdsValueLabel::Vote(_, p) => *p,
@@ -140,32 +140,32 @@ impl CrdsValue {
     }
 
     #[inline]
-    pub(crate) fn signature(&self) -> &Signature {
+    pub(crate) const fn signature(&self) -> &Signature {
         &self.signature
     }
 
     #[inline]
-    pub(crate) fn data(&self) -> &CrdsData {
+    pub(crate) const fn data(&self) -> &CrdsData {
         &self.data
     }
 
     #[inline]
-    pub(crate) fn hash(&self) -> &Hash {
+    pub(crate) const fn hash(&self) -> &Hash {
         &self.hash
     }
 
     /// Totally unsecure unverifiable wallclock of the node that generated this message
     /// Latest wallclock is always picked.
     /// This is used to time out push messages.
-    pub(crate) fn wallclock(&self) -> u64 {
+    pub(crate) const fn wallclock(&self) -> u64 {
         self.data.wallclock()
     }
 
-    pub(crate) fn pubkey(&self) -> Pubkey {
+    pub(crate) const fn pubkey(&self) -> Pubkey {
         self.data.pubkey()
     }
 
-    pub fn label(&self) -> CrdsValueLabel {
+    pub const fn label(&self) -> CrdsValueLabel {
         let pubkey = self.data.pubkey();
         match self.data {
             CrdsData::LegacyContactInfo(_) => CrdsValueLabel::LegacyContactInfo(pubkey),
@@ -187,14 +187,14 @@ impl CrdsValue {
         }
     }
 
-    pub(crate) fn contact_info(&self) -> Option<&ContactInfo> {
+    pub(crate) const fn contact_info(&self) -> Option<&ContactInfo> {
         let CrdsData::ContactInfo(node) = &self.data else {
             return None;
         };
         Some(node)
     }
 
-    pub(crate) fn epoch_slots(&self) -> Option<&EpochSlots> {
+    pub(crate) const fn epoch_slots(&self) -> Option<&EpochSlots> {
         let CrdsData::EpochSlots(_, epoch_slots) = &self.data else {
             return None;
         };

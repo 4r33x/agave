@@ -37,11 +37,11 @@ impl VoteStakeTracker {
         }
     }
 
-    pub fn voted(&self) -> &HashSet<Pubkey> {
+    pub const fn voted(&self) -> &HashSet<Pubkey> {
         &self.voted
     }
 
-    pub fn stake(&self) -> u64 {
+    pub const fn stake(&self) -> u64 {
         self.stake
     }
 }

@@ -27,7 +27,11 @@ pub struct AccountMapEntry<T> {
 }
 
 impl<T: IndexValue> AccountMapEntry<T> {
-    pub fn new(slot_list: SlotList<T>, ref_count: RefCount, meta: AccountMapEntryMeta) -> Self {
+    pub const fn new(
+        slot_list: SlotList<T>,
+        ref_count: RefCount,
+        meta: AccountMapEntryMeta,
+    ) -> Self {
         Self {
             slot_list: RwLock::new(slot_list),
             ref_count: AtomicRefCount::new(ref_count),

@@ -15,7 +15,7 @@ enum Visit {
 }
 
 impl Visit {
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         match self {
             Visit::Visited(slot) => *slot,
             Visit::Unvisited(slot) => *slot,

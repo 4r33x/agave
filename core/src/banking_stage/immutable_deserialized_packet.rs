@@ -97,23 +97,23 @@ impl ImmutableDeserializedPacket {
         })
     }
 
-    pub fn forwarded(&self) -> bool {
+    pub const fn forwarded(&self) -> bool {
         self.forwarded
     }
 
-    pub fn transaction(&self) -> &SanitizedVersionedTransaction {
+    pub const fn transaction(&self) -> &SanitizedVersionedTransaction {
         &self.transaction
     }
 
-    pub fn message_hash(&self) -> &Hash {
+    pub const fn message_hash(&self) -> &Hash {
         &self.message_hash
     }
 
-    pub fn is_simple_vote(&self) -> bool {
+    pub const fn is_simple_vote(&self) -> bool {
         self.is_simple_vote
     }
 
-    pub fn compute_unit_price(&self) -> u64 {
+    pub const fn compute_unit_price(&self) -> u64 {
         self.compute_unit_price
     }
 

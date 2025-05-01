@@ -70,6 +70,7 @@ impl Clone for VoteAccounts {
 }
 
 impl VoteAccount {
+    #[allow(clippy::missing_const_for_fn)]
     pub fn account(&self) -> &AccountSharedData {
         &self.0.account
     }
@@ -81,7 +82,7 @@ impl VoteAccount {
     pub fn owner(&self) -> &Pubkey {
         self.0.account.owner()
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     pub fn vote_state_view(&self) -> &VoteStateView {
         &self.0.vote_state_view
     }

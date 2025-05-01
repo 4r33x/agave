@@ -138,7 +138,7 @@ pub struct VersionedCrdsValue {
 pub struct Cursor(u64);
 
 impl Cursor {
-    fn ordinal(&self) -> u64 {
+    const fn ordinal(&self) -> u64 {
         self.0
     }
 
@@ -150,7 +150,12 @@ impl Cursor {
 }
 
 impl VersionedCrdsValue {
-    fn new(value: CrdsValue, cursor: Cursor, local_timestamp: u64, route: GossipRoute) -> Self {
+    const fn new(
+        value: CrdsValue,
+        cursor: Cursor,
+        local_timestamp: u64,
+        route: GossipRoute,
+    ) -> Self {
         let num_push_recv = match route {
             GossipRoute::LocalMessage => None,
             GossipRoute::PullRequest => None,
@@ -734,11 +739,11 @@ impl CrdsDataStats {
         }
     }
 
-    fn record_fail(&mut self, entry: &VersionedCrdsValue) {
+    const fn record_fail(&mut self, entry: &VersionedCrdsValue) {
         self.fails[Self::ordinal(entry)] += 1;
     }
 
-    fn ordinal(entry: &VersionedCrdsValue) -> usize {
+    const fn ordinal(entry: &VersionedCrdsValue) -> usize {
         match entry.value.data() {
             CrdsData::LegacyContactInfo(_) => 0,
             CrdsData::Vote(_, _) => 1,
@@ -769,7 +774,7 @@ impl CrdsStats {
         }
     }
 
-    fn record_fail(&mut self, entry: &VersionedCrdsValue, route: GossipRoute) {
+    const fn record_fail(&mut self, entry: &VersionedCrdsValue, route: GossipRoute) {
         match route {
             GossipRoute::LocalMessage => (),
             GossipRoute::PullRequest => (),

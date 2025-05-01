@@ -376,7 +376,7 @@ pub(crate) struct SignerSource {
 }
 
 impl SignerSource {
-    fn new(kind: SignerSourceKind) -> Self {
+    const fn new(kind: SignerSourceKind) -> Self {
         Self {
             kind,
             derivation_path: None,
@@ -384,7 +384,7 @@ impl SignerSource {
         }
     }
 
-    fn new_legacy(kind: SignerSourceKind) -> Self {
+    const fn new_legacy(kind: SignerSourceKind) -> Self {
         Self {
             kind,
             derivation_path: None,

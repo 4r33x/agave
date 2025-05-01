@@ -119,7 +119,7 @@ pub struct BpfAllocator {
 }
 
 impl BpfAllocator {
-    pub fn new(len: u64) -> Self {
+    pub const fn new(len: u64) -> Self {
         Self { len, pos: 0 }
     }
 
@@ -631,34 +631,34 @@ impl<'a> InvokeContext<'a> {
     }
 
     /// Get this invocation's compute budget
-    pub fn get_compute_budget(&self) -> &SVMTransactionExecutionBudget {
+    pub const fn get_compute_budget(&self) -> &SVMTransactionExecutionBudget {
         &self.compute_budget
     }
 
     /// Get this invocation's compute budget
-    pub fn get_execution_cost(&self) -> &SVMTransactionExecutionCost {
+    pub const fn get_execution_cost(&self) -> &SVMTransactionExecutionCost {
         &self.execution_cost
     }
 
     /// Get the current feature set.
-    pub fn get_feature_set(&self) -> &SVMFeatureSet {
+    pub const fn get_feature_set(&self) -> &SVMFeatureSet {
         self.environment_config.feature_set
     }
 
-    pub fn is_stake_raise_minimum_delegation_to_1_sol_active(&self) -> bool {
+    pub const fn is_stake_raise_minimum_delegation_to_1_sol_active(&self) -> bool {
         self.environment_config
             .feature_set
             .stake_raise_minimum_delegation_to_1_sol
     }
 
-    pub fn is_deprecate_legacy_vote_ixs_active(&self) -> bool {
+    pub const fn is_deprecate_legacy_vote_ixs_active(&self) -> bool {
         self.environment_config
             .feature_set
             .deprecate_legacy_vote_ixs
     }
 
     /// Get cached sysvars
-    pub fn get_sysvar_cache(&self) -> &SysvarCache {
+    pub const fn get_sysvar_cache(&self) -> &SysvarCache {
         self.environment_config.sysvar_cache
     }
 
@@ -725,7 +725,7 @@ impl<'a> InvokeContext<'a> {
     }
 
     /// Return a references to traces
-    pub fn get_traces(&self) -> &Vec<Vec<[u64; 12]>> {
+    pub const fn get_traces(&self) -> &Vec<Vec<[u64; 12]>> {
         &self.traces
     }
 }

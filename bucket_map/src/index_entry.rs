@@ -242,15 +242,15 @@ impl MultipleSlots {
         self.storage_cap_and_offset.offset()
     }
 
-    pub(crate) fn num_slots(&self) -> Slot {
+    pub(crate) const fn num_slots(&self) -> Slot {
         self.num_slots
     }
 
-    pub(crate) fn set_num_slots(&mut self, num_slots: Slot) {
+    pub(crate) const fn set_num_slots(&mut self, num_slots: Slot) {
         self.num_slots = num_slots;
     }
 
-    pub(crate) fn data_bucket_ix(&self) -> u64 {
+    pub(crate) const fn data_bucket_ix(&self) -> u64 {
         Self::data_bucket_from_num_slots(self.num_slots())
     }
 
@@ -259,7 +259,7 @@ impl MultipleSlots {
     ///     min index, such that 2^index >= num_slots
     ///     index = ceiling(log2(num_slots))
     /// special case, when slot slice empty, return 0th index.
-    pub(crate) fn data_bucket_from_num_slots(num_slots: Slot) -> u64 {
+    pub(crate) const fn data_bucket_from_num_slots(num_slots: Slot) -> u64 {
         // Compute the ceiling of log2 for integer
         if num_slots == 0 {
             0
@@ -472,7 +472,7 @@ impl<T: Copy + PartialEq + 'static> IndexEntryPlaceInBucket<T> {
         (slot_list, ref_count)
     }
 
-    pub fn new(ix: u64) -> Self {
+    pub const fn new(ix: u64) -> Self {
         Self {
             ix,
             _phantom: PhantomData,

@@ -19,7 +19,7 @@ pub struct VoteStorage {
 }
 
 impl VoteStorage {
-    pub fn new(latest_unprocessed_votes: LatestUnprocessedVotes) -> Self {
+    pub const fn new(latest_unprocessed_votes: LatestUnprocessedVotes) -> Self {
         Self {
             latest_unprocessed_votes,
         }
@@ -33,7 +33,7 @@ impl VoteStorage {
         self.latest_unprocessed_votes.len()
     }
 
-    pub fn max_receive_size(&self) -> usize {
+    pub const fn max_receive_size(&self) -> usize {
         MAX_NUM_VOTES_RECEIVE
     }
 

@@ -95,7 +95,6 @@ impl TransactionAccounts {
             resize_delta: RefCell::new(0),
         }
     }
-
     fn len(&self) -> usize {
         self.accounts.len()
     }
@@ -220,7 +219,7 @@ impl TransactionContext {
     }
 
     #[cfg(not(target_os = "solana"))]
-    pub fn set_remove_accounts_executable_flag_checks(&mut self, enabled: bool) {
+    pub const fn set_remove_accounts_executable_flag_checks(&mut self, enabled: bool) {
         self.remove_accounts_executable_flag_checks = enabled;
     }
 
@@ -240,7 +239,7 @@ impl TransactionContext {
     }
 
     #[cfg(not(target_os = "solana"))]
-    pub fn accounts(&self) -> &Rc<TransactionAccounts> {
+    pub const fn accounts(&self) -> &Rc<TransactionAccounts> {
         &self.accounts
     }
 
@@ -250,7 +249,7 @@ impl TransactionContext {
         feature = "debug-signature",
         debug_assertions
     ))]
-    pub fn set_signature(&mut self, signature: &Signature) {
+    pub const fn set_signature(&mut self, signature: &Signature) {
         self.signature = *signature;
     }
 
@@ -260,7 +259,7 @@ impl TransactionContext {
         feature = "debug-signature",
         debug_assertions
     ))]
-    pub fn get_signature(&self) -> &Signature {
+    pub const fn get_signature(&self) -> &Signature {
         &self.signature
     }
 
@@ -310,7 +309,7 @@ impl TransactionContext {
     }
 
     /// Gets the max length of the InstructionContext trace
-    pub fn get_instruction_trace_capacity(&self) -> usize {
+    pub const fn get_instruction_trace_capacity(&self) -> usize {
         self.instruction_trace_capacity
     }
 
@@ -347,7 +346,7 @@ impl TransactionContext {
     }
 
     /// Gets the max height of the InstructionContext stack
-    pub fn get_instruction_stack_capacity(&self) -> usize {
+    pub const fn get_instruction_stack_capacity(&self) -> usize {
         self.instruction_stack_capacity
     }
 
@@ -464,7 +463,7 @@ impl TransactionContext {
             Ok(())
         }
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     /// Gets the return data of the current InstructionContext or any above
     pub fn get_return_data(&self) -> (&Pubkey, &[u8]) {
         (&self.return_data.program_id, &self.return_data.data)
@@ -586,7 +585,7 @@ impl InstructionContext {
     /// How many Instructions were on the stack after this one was pushed
     ///
     /// That is the number of nested parent Instructions plus one (itself).
-    pub fn get_stack_height(&self) -> usize {
+    pub const fn get_stack_height(&self) -> usize {
         self.nesting_level.saturating_add(1)
     }
 
@@ -611,7 +610,7 @@ impl InstructionContext {
             Ok(())
         }
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     /// Data parameter for the programs `process_instruction` handler
     pub fn get_instruction_data(&self) -> &[u8] {
         &self.instruction_data
@@ -824,13 +823,13 @@ pub struct BorrowedAccount<'a> {
 
 impl BorrowedAccount<'_> {
     /// Returns the transaction context
-    pub fn transaction_context(&self) -> &TransactionContext {
+    pub const fn transaction_context(&self) -> &TransactionContext {
         self.transaction_context
     }
 
     /// Returns the index of this account (transaction wide)
     #[inline]
-    pub fn get_index_in_transaction(&self) -> IndexOfAccount {
+    pub const fn get_index_in_transaction(&self) -> IndexOfAccount {
         self.index_in_transaction
     }
 

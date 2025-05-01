@@ -69,7 +69,7 @@ const _: () = assert!(
 /// Returns the size this item will take to store plus possible alignment padding bytes before the next entry.
 /// fixed-size portion of per-account data written
 /// plus 'data_len', aligned to next boundary
-pub fn aligned_stored_size(data_len: usize) -> usize {
+pub const fn aligned_stored_size(data_len: usize) -> usize {
     u64_align!(STORE_META_OVERHEAD + data_len)
 }
 
@@ -81,7 +81,7 @@ fn aligned_stored_size_checked(data_len: usize) -> Option<usize> {
 
 /// Compute the (unaligned) stored size of an account.
 #[inline(always)]
-fn stored_size_checked(data_len: usize) -> Option<usize> {
+const fn stored_size_checked(data_len: usize) -> Option<usize> {
     STORE_META_OVERHEAD.checked_add(data_len)
 }
 
@@ -110,18 +110,18 @@ pub(crate) struct ValidSlice<'a>(&'a [u8]);
 
 impl<'a> ValidSlice<'a> {
     #[inline(always)]
-    pub(crate) fn new(data: &'a [u8]) -> Self {
+    pub(crate) const fn new(data: &'a [u8]) -> Self {
         Self(data)
     }
 
     #[inline(always)]
-    pub(crate) fn len(&self) -> usize {
+    pub(crate) const fn len(&self) -> usize {
         self.0.len()
     }
 
     #[inline(always)]
     #[cfg(all(unix, test))]
-    pub(crate) fn slice(&self) -> &[u8] {
+    pub(crate) const fn slice(&self) -> &[u8] {
         self.0
     }
 }
@@ -346,7 +346,7 @@ impl AppendVec {
         }
     }
 
-    pub fn dead_bytes_due_to_zero_lamport_single_ref(&self, count: usize) -> usize {
+    pub const fn dead_bytes_due_to_zero_lamport_single_ref(&self, count: usize) -> usize {
         aligned_stored_size(0) * count
     }
 
@@ -427,7 +427,7 @@ impl AppendVec {
         self.len() == 0
     }
 
-    pub fn capacity(&self) -> u64 {
+    pub const fn capacity(&self) -> u64 {
         self.file_size
     }
 
@@ -920,7 +920,7 @@ impl AppendVec {
     /// With these helpers, we can skip over reading some of the data depending on what the caller wants.
     ///
     /// *Safety* - The caller must ensure that the `stored_meta.data_len` won't overflow the calculation.
-    fn next_account_offset(start_offset: usize, stored_meta: &StoredMeta) -> AccountOffsets {
+    const fn next_account_offset(start_offset: usize, stored_meta: &StoredMeta) -> AccountOffsets {
         let stored_size_unaligned = STORE_META_OVERHEAD
             .checked_add(stored_meta.data_len as usize)
             .expect("stored size cannot overflow");
@@ -1310,7 +1310,7 @@ impl AppendVec {
         })
     }
 
-    pub(crate) fn can_append(&self) -> bool {
+    pub(crate) const fn can_append(&self) -> bool {
         match &self.backing {
             AppendVecFileBacking::File(_file) => false,
             AppendVecFileBacking::Mmap(_mmap) => true,

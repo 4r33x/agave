@@ -132,12 +132,12 @@ impl CostTracker {
     }
 
     /// Get the overall block limit.
-    pub fn get_block_limit(&self) -> u64 {
+    pub const fn get_block_limit(&self) -> u64 {
         self.block_cost_limit
     }
 
     /// allows to adjust limits initiated during construction
-    pub fn set_limits(
+    pub const fn set_limits(
         &mut self,
         account_cost_limit: u64,
         block_cost_limit: u64,
@@ -148,7 +148,7 @@ impl CostTracker {
         self.vote_cost_limit = vote_cost_limit;
     }
 
-    pub fn in_flight_transaction_count(&self) -> usize {
+    pub const fn in_flight_transaction_count(&self) -> usize {
         self.in_flight_transaction_count.0
     }
 
@@ -204,15 +204,15 @@ impl CostTracker {
         self.remove_transaction_cost(tx_cost);
     }
 
-    pub fn block_cost(&self) -> u64 {
+    pub const fn block_cost(&self) -> u64 {
         self.block_cost
     }
 
-    pub fn vote_cost(&self) -> u64 {
+    pub const fn vote_cost(&self) -> u64 {
         self.vote_cost
     }
 
-    pub fn transaction_count(&self) -> u64 {
+    pub const fn transaction_count(&self) -> u64 {
         self.transaction_count.0
     }
 

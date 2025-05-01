@@ -36,15 +36,15 @@ struct PrioritizationFeeMetrics {
 }
 
 impl PrioritizationFeeMetrics {
-    fn accumulate_total_prioritization_fee(&mut self, val: u64) {
+    const fn accumulate_total_prioritization_fee(&mut self, val: u64) {
         saturating_add_assign!(self.total_prioritization_fee, val);
     }
 
-    fn accumulate_total_update_elapsed_us(&mut self, val: u64) {
+    const fn accumulate_total_update_elapsed_us(&mut self, val: u64) {
         saturating_add_assign!(self.total_update_elapsed_us, val);
     }
 
-    fn increment_attempted_update_on_finalized_fee_count(&mut self, val: u64) {
+    const fn increment_attempted_update_on_finalized_fee_count(&mut self, val: u64) {
         saturating_add_assign!(self.attempted_update_on_finalized_fee_count, val);
     }
 
@@ -227,7 +227,7 @@ impl PrioritizationFee {
         self.min_writable_account_fees.len()
     }
 
-    pub fn is_finalized(&self) -> bool {
+    pub const fn is_finalized(&self) -> bool {
         self.is_finalized
     }
 

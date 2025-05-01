@@ -38,7 +38,7 @@ pub enum Role {
 ///  - the (64 - `bit_length`) high bits of `amount` interpreted as u64
 #[deprecated(since = "1.18.0", note = "please use `try_split_u64` instead")]
 #[cfg(not(target_os = "solana"))]
-pub fn split_u64(amount: u64, bit_length: usize) -> (u64, u64) {
+pub const fn split_u64(amount: u64, bit_length: usize) -> (u64, u64) {
     if bit_length == 64 {
         (amount, 0)
     } else {
@@ -73,7 +73,7 @@ pub fn try_split_u64(amount: u64, bit_length: usize) -> Result<(u64, u64), Instr
 
 #[deprecated(since = "1.18.0", note = "please use `try_combine_lo_hi_u64` instead")]
 #[cfg(not(target_os = "solana"))]
-pub fn combine_lo_hi_u64(amount_lo: u64, amount_hi: u64, bit_length: usize) -> u64 {
+pub const fn combine_lo_hi_u64(amount_lo: u64, amount_hi: u64, bit_length: usize) -> u64 {
     if bit_length == 64 {
         amount_lo
     } else {

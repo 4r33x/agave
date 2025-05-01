@@ -82,7 +82,7 @@ impl SnapshotGossipManager {
     }
 
     /// Update the latest snapshot hashes with a new full snapshot
-    fn update_latest_full_snapshot_hash(&mut self, full_snapshot_hash: FullSnapshotHash) {
+    const fn update_latest_full_snapshot_hash(&mut self, full_snapshot_hash: FullSnapshotHash) {
         self.latest_snapshot_hashes = Some(LatestSnapshotHashes {
             full: full_snapshot_hash,
             // If we've gotten a new full snapshot, we know there cannot be any

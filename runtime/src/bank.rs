@@ -288,7 +288,7 @@ impl CollectorFeeDetails {
             .saturating_add(fee_details.prioritization_fee());
     }
 
-    pub(crate) fn total(&self) -> u64 {
+    pub(crate) const fn total(&self) -> u64 {
         self.transaction_fee.saturating_add(self.priority_fee)
     }
 }
@@ -1019,7 +1019,7 @@ impl BankHashStats {
         }
         self.num_lamports_stored = self.num_lamports_stored.wrapping_add(account.lamports());
     }
-    pub fn accumulate(&mut self, other: &BankHashStats) {
+    pub const fn accumulate(&mut self, other: &BankHashStats) {
         self.num_updated_accounts += other.num_updated_accounts;
         self.num_removed_accounts += other.num_removed_accounts;
         self.total_data_len = self.total_data_len.wrapping_add(other.total_data_len);
@@ -1040,7 +1040,7 @@ pub struct AtomicBankHashStats {
 }
 
 impl AtomicBankHashStats {
-    pub fn new(stat: &BankHashStats) -> Self {
+    pub const fn new(stat: &BankHashStats) -> Self {
         AtomicBankHashStats {
             num_updated_accounts: AtomicU64::new(stat.num_updated_accounts),
             num_removed_accounts: AtomicU64::new(stat.num_removed_accounts),
@@ -1694,6 +1694,7 @@ impl Bank {
         );
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn byte_limit_for_scans(&self) -> Option<usize> {
         self.rc
             .accounts
@@ -1718,7 +1719,7 @@ impl Bank {
         *self.drop_callback.write().unwrap() = OptionalDropCallback(callback);
     }
 
-    pub fn vote_only_bank(&self) -> bool {
+    pub const fn vote_only_bank(&self) -> bool {
         self.vote_only_bank
     }
 
@@ -2045,27 +2046,27 @@ impl Bank {
         }
     }
 
-    pub fn collector_id(&self) -> &Pubkey {
+    pub const fn collector_id(&self) -> &Pubkey {
         &self.collector_id
     }
 
-    pub fn genesis_creation_time(&self) -> UnixTimestamp {
+    pub const fn genesis_creation_time(&self) -> UnixTimestamp {
         self.genesis_creation_time
     }
 
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         self.slot
     }
 
-    pub fn bank_id(&self) -> BankId {
+    pub const fn bank_id(&self) -> BankId {
         self.bank_id
     }
 
-    pub fn epoch(&self) -> Epoch {
+    pub const fn epoch(&self) -> Epoch {
         self.epoch
     }
 
-    pub fn first_normal_epoch(&self) -> Epoch {
+    pub const fn first_normal_epoch(&self) -> Epoch {
         self.epoch_schedule().first_normal_epoch
     }
 
@@ -2101,7 +2102,7 @@ impl Bank {
     }
 
     /// computed unix_timestamp at this slot height
-    pub fn unix_timestamp_from_genesis(&self) -> i64 {
+    pub const fn unix_timestamp_from_genesis(&self) -> i64 {
         self.genesis_creation_time.saturating_add(
             (self.slot as u128)
                 .saturating_mul(self.ns_per_slot)
@@ -2695,7 +2696,7 @@ impl Bank {
         self.freeze_started.store(false, Relaxed);
     }
 
-    pub fn epoch_schedule(&self) -> &EpochSchedule {
+    pub const fn epoch_schedule(&self) -> &EpochSchedule {
         &self.epoch_schedule
     }
 
@@ -2748,11 +2749,11 @@ impl Bank {
         self.rc.parent.read().unwrap().clone()
     }
 
-    pub fn parent_slot(&self) -> Slot {
+    pub const fn parent_slot(&self) -> Slot {
         self.parent_slot
     }
 
-    pub fn parent_hash(&self) -> Hash {
+    pub const fn parent_hash(&self) -> Hash {
         self.parent_hash
     }
 
@@ -2874,11 +2875,11 @@ impl Bank {
         self.store_account_and_update_capitalization(program_id, &account);
     }
 
-    pub fn set_rent_burn_percentage(&mut self, burn_percent: u8) {
+    pub const fn set_rent_burn_percentage(&mut self, burn_percent: u8) {
         self.rent_collector.rent.burn_percent = burn_percent;
     }
 
-    pub fn set_hashes_per_tick(&mut self, hashes_per_tick: Option<u64>) {
+    pub const fn set_hashes_per_tick(&mut self, hashes_per_tick: Option<u64>) {
         self.hashes_per_tick = hashes_per_tick;
     }
 
@@ -2905,7 +2906,7 @@ impl Bank {
         self.rent_collector.rent.minimum_balance(data_len).max(1)
     }
 
-    pub fn get_lamports_per_signature(&self) -> u64 {
+    pub const fn get_lamports_per_signature(&self) -> u64 {
         self.fee_rate_governor.lamports_per_signature
     }
 
@@ -2928,7 +2929,7 @@ impl Bank {
         })?;
         Some(self.get_fee_for_message_with_lamports_per_signature(message, lamports_per_signature))
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     /// Returns true when startup accounts hash verification has completed or never had to run in background.
     pub fn get_startup_verification_complete(&self) -> &Arc<AtomicBool> {
         &self
@@ -3140,7 +3141,7 @@ impl Bank {
         self.tick_height() == self.max_tick_height()
     }
 
-    pub fn is_block_boundary(&self, tick_height: u64) -> bool {
+    pub const fn is_block_boundary(&self, tick_height: u64) -> bool {
         tick_height == self.max_tick_height
     }
 
@@ -4534,14 +4535,14 @@ impl Bank {
             && self.slot_count_per_normal_epoch() < self.slot_count_in_two_day()
     }
 
-    fn slot_count_in_two_day(&self) -> SlotCount {
+    const fn slot_count_in_two_day(&self) -> SlotCount {
         Self::slot_count_in_two_day_helper(self.ticks_per_slot)
     }
 
     // This value is specially chosen to align with slots per epoch in mainnet-beta and testnet
     // Also, assume 500GB account data set as the extreme, then for 2 day (=48 hours) to collect
     // rent eagerly, we'll consume 5.7 MB/s IO bandwidth, bidirectionally.
-    pub fn slot_count_in_two_day_helper(ticks_per_slot: SlotCount) -> SlotCount {
+    pub const fn slot_count_in_two_day_helper(ticks_per_slot: SlotCount) -> SlotCount {
         2 * DEFAULT_TICKS_PER_SECOND * SECONDS_PER_DAY / ticks_per_slot
     }
 
@@ -4549,7 +4550,7 @@ impl Bank {
         self.get_slots_in_epoch(self.first_normal_epoch())
     }
 
-    pub fn cluster_type(&self) -> ClusterType {
+    pub const fn cluster_type(&self) -> ClusterType {
         // unwrap is safe; self.cluster_type is ensured to be Some() always...
         // we only using Option here for ABI compatibility...
         self.cluster_type.unwrap()
@@ -6087,17 +6088,17 @@ impl Bank {
     }
 
     /// Return the number of hashes per tick
-    pub fn hashes_per_tick(&self) -> &Option<u64> {
+    pub const fn hashes_per_tick(&self) -> &Option<u64> {
         &self.hashes_per_tick
     }
 
     /// Return the number of ticks per slot
-    pub fn ticks_per_slot(&self) -> u64 {
+    pub const fn ticks_per_slot(&self) -> u64 {
         self.ticks_per_slot
     }
 
     /// Return the number of slots per year
-    pub fn slots_per_year(&self) -> f64 {
+    pub const fn slots_per_year(&self) -> f64 {
         self.slots_per_year
     }
 
@@ -6112,7 +6113,7 @@ impl Bank {
     }
 
     /// Return the rent collector for this Bank
-    pub fn rent_collector(&self) -> &RentCollector {
+    pub const fn rent_collector(&self) -> &RentCollector {
         &self.rent_collector
     }
 
@@ -6122,12 +6123,12 @@ impl Bank {
     }
 
     /// Return this bank's max_tick_height
-    pub fn max_tick_height(&self) -> u64 {
+    pub const fn max_tick_height(&self) -> u64 {
         self.max_tick_height
     }
 
     /// Return the block_height of this bank
-    pub fn block_height(&self) -> u64 {
+    pub const fn block_height(&self) -> u64 {
         self.block_height
     }
 
@@ -6243,7 +6244,7 @@ impl Bank {
         self.epoch_stakes.get(&epoch)
     }
 
-    pub fn epoch_stakes_map(&self) -> &HashMap<Epoch, EpochStakes> {
+    pub const fn epoch_stakes_map(&self) -> &HashMap<Epoch, EpochStakes> {
         &self.epoch_stakes
     }
 
@@ -6488,6 +6489,7 @@ impl Bank {
         }
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     /// Get a set of all actively reserved account keys that are not allowed to
     /// be write-locked during transaction processing.
     pub fn get_reserved_account_keys(&self) -> &HashSet<Pubkey> {
@@ -6914,15 +6916,15 @@ impl Bank {
         false
     }
 
-    pub fn check_program_modification_slot(&self) -> bool {
+    pub const fn check_program_modification_slot(&self) -> bool {
         self.check_program_modification_slot
     }
 
-    pub fn set_check_program_modification_slot(&mut self, check: bool) {
+    pub const fn set_check_program_modification_slot(&mut self, check: bool) {
         self.check_program_modification_slot = check;
     }
 
-    pub fn fee_structure(&self) -> &FeeStructure {
+    pub const fn fee_structure(&self) -> &FeeStructure {
         &self.fee_structure
     }
 
@@ -6934,7 +6936,7 @@ impl Bank {
         *self.block_id.write().unwrap() = block_id;
     }
 
-    pub fn compute_budget(&self) -> Option<ComputeBudget> {
+    pub const fn compute_budget(&self) -> Option<ComputeBudget> {
         self.compute_budget
     }
 
@@ -7177,7 +7179,7 @@ impl Bank {
 
     /// Set the initial accounts data size
     /// NOTE: This fn is *ONLY FOR TESTS*
-    pub fn set_accounts_data_size_initial_for_tests(&mut self, amount: u64) {
+    pub const fn set_accounts_data_size_initial_for_tests(&mut self, amount: u64) {
         self.accounts_data_size_initial = amount;
     }
 
@@ -7249,7 +7251,7 @@ impl Bank {
         )
     }
 
-    pub fn get_transaction_processor(&self) -> &TransactionBatchProcessor<BankForks> {
+    pub const fn get_transaction_processor(&self) -> &TransactionBatchProcessor<BankForks> {
         &self.transaction_processor
     }
 

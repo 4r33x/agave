@@ -54,7 +54,7 @@ impl PrecompileSignatureDetailsBuilder {
         }
     }
 
-    pub fn build(self) -> PrecompileSignatureDetails {
+    pub const fn build(self) -> PrecompileSignatureDetails {
         self.value
     }
 }
@@ -92,7 +92,7 @@ struct SignatureDetailsFilter {
 
 impl SignatureDetailsFilter {
     #[inline]
-    fn new() -> Self {
+    const fn new() -> Self {
         Self {
             flags: [None; FILTER_SIZE as usize],
         }

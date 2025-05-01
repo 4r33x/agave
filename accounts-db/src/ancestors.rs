@@ -74,11 +74,11 @@ impl Ancestors {
         self.ancestors.contains(slot)
     }
 
-    pub fn len(&self) -> usize {
+    pub const fn len(&self) -> usize {
         self.ancestors.len()
     }
 
-    pub fn is_empty(&self) -> bool {
+    pub const fn is_empty(&self) -> bool {
         self.len() == 0
     }
 
@@ -86,7 +86,7 @@ impl Ancestors {
         self.ancestors.min().unwrap_or_default()
     }
 
-    pub fn max_slot(&self) -> Slot {
+    pub const fn max_slot(&self) -> Slot {
         self.ancestors.max_exclusive().saturating_sub(1)
     }
 }

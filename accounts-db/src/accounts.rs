@@ -43,7 +43,7 @@ struct TransactionAccountLocksIterator<'a, T: SVMMessage> {
 }
 
 impl<'a, T: SVMMessage> TransactionAccountLocksIterator<'a, T> {
-    pub(crate) fn new(transaction: &'a T) -> Self {
+    pub(crate) const fn new(transaction: &'a T) -> Self {
         Self { transaction }
     }
 
@@ -330,7 +330,7 @@ impl Accounts {
         }
     }
 
-    pub fn is_loadable(lamports: u64) -> bool {
+    pub const fn is_loadable(lamports: u64) -> bool {
         // Don't ever load zero lamport accounts into runtime because
         // the existence of zero-lamport accounts are never deterministic!!
         lamports > 0

@@ -212,6 +212,7 @@ impl Bank {
         ));
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub(super) fn partitioned_epoch_rewards_config(&self) -> &PartitionedEpochRewardsConfig {
         &self
             .rc

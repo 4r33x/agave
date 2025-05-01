@@ -12,7 +12,7 @@ use {
     solana_svm_transaction::message_address_table_lookup::SVMMessageAddressTableLookup,
 };
 
-fn into_address_loader_error(err: AddressLookupError) -> AddressLoaderError {
+const fn into_address_loader_error(err: AddressLookupError) -> AddressLoaderError {
     match err {
         AddressLookupError::LookupTableAccountNotFound => {
             AddressLoaderError::LookupTableAccountNotFound

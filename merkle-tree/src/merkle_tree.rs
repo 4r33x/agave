@@ -64,7 +64,7 @@ impl<'a> Proof<'a> {
 
 impl MerkleTree {
     #[inline]
-    fn next_level_len(level_len: usize) -> usize {
+    const fn next_level_len(level_len: usize) -> usize {
         if level_len == 1 {
             0
         } else {

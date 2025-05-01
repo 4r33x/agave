@@ -137,7 +137,7 @@ impl CrdsData {
         }
     }
 
-    pub(crate) fn wallclock(&self) -> u64 {
+    pub(crate) const fn wallclock(&self) -> u64 {
         match self {
             CrdsData::LegacyContactInfo(contact_info) => contact_info.wallclock(),
             CrdsData::Vote(_, vote) => vote.wallclock,
@@ -156,7 +156,7 @@ impl CrdsData {
         }
     }
 
-    pub(crate) fn pubkey(&self) -> Pubkey {
+    pub(crate) const fn pubkey(&self) -> Pubkey {
         match &self {
             CrdsData::LegacyContactInfo(contact_info) => *contact_info.pubkey(),
             CrdsData::Vote(_, vote) => vote.from,
@@ -177,7 +177,7 @@ impl CrdsData {
 
     #[inline]
     #[must_use]
-    pub(crate) fn is_deprecated(&self) -> bool {
+    pub(crate) const fn is_deprecated(&self) -> bool {
         match self {
             Self::LegacyContactInfo(_) => true,
             Self::Vote(..) => false,
@@ -292,7 +292,7 @@ pub struct LowestSlot {
 }
 
 impl LowestSlot {
-    pub(crate) fn new(from: Pubkey, lowest: Slot, wallclock: u64) -> Self {
+    pub(crate) const fn new(from: Pubkey, lowest: Slot, wallclock: u64) -> Self {
         Self {
             from,
             root: 0,
@@ -374,11 +374,11 @@ impl Vote {
         }
     }
 
-    pub(crate) fn transaction(&self) -> &Transaction {
+    pub(crate) const fn transaction(&self) -> &Transaction {
         &self.transaction
     }
 
-    pub(crate) fn slot(&self) -> Option<Slot> {
+    pub(crate) const fn slot(&self) -> Option<Slot> {
         self.slot
     }
 }
@@ -460,7 +460,7 @@ impl NodeInstance {
 
     #[cfg(test)]
     // Clones the value with an updated wallclock.
-    pub(crate) fn with_wallclock(&self, wallclock: u64) -> Self {
+    pub(crate) const fn with_wallclock(&self, wallclock: u64) -> Self {
         Self { wallclock, ..*self }
     }
 
@@ -488,7 +488,7 @@ impl Sanitize for NodeInstance {
     }
 }
 
-pub(crate) fn sanitize_wallclock(wallclock: u64) -> Result<(), SanitizeError> {
+pub(crate) const fn sanitize_wallclock(wallclock: u64) -> Result<(), SanitizeError> {
     if wallclock >= MAX_WALLCLOCK {
         Err(SanitizeError::ValueOutOfBounds)
     } else {

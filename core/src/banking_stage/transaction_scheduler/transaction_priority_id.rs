@@ -15,7 +15,7 @@ pub(crate) struct TransactionPriorityId {
 }
 
 impl TransactionPriorityId {
-    pub(crate) fn new(priority: u64, id: TransactionId) -> Self {
+    pub(crate) const fn new(priority: u64, id: TransactionId) -> Self {
         Self { priority, id }
     }
 }

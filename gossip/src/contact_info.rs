@@ -226,22 +226,22 @@ impl ContactInfo {
     }
 
     #[inline]
-    pub fn pubkey(&self) -> &Pubkey {
+    pub const fn pubkey(&self) -> &Pubkey {
         &self.pubkey
     }
 
     #[inline]
-    pub fn wallclock(&self) -> u64 {
+    pub const fn wallclock(&self) -> u64 {
         self.wallclock
     }
 
     #[inline]
-    pub fn shred_version(&self) -> u16 {
+    pub const fn shred_version(&self) -> u16 {
         self.shred_version
     }
 
     #[inline]
-    pub(crate) fn version(&self) -> &solana_version::Version {
+    pub(crate) const fn version(&self) -> &solana_version::Version {
         &self.version
     }
 
@@ -252,11 +252,11 @@ impl ContactInfo {
         self.outset = get_node_outset();
     }
 
-    pub fn set_wallclock(&mut self, wallclock: u64) {
+    pub const fn set_wallclock(&mut self, wallclock: u64) {
         self.wallclock = wallclock;
     }
 
-    pub fn set_shred_version(&mut self, shred_version: u16) {
+    pub const fn set_shred_version(&mut self, shred_version: u16) {
         self.shred_version = shred_version
     }
 
@@ -581,7 +581,7 @@ impl Sanitize for ContactInfo {
     }
 }
 
-pub(crate) fn sanitize_socket(socket: &SocketAddr) -> Result<(), Error> {
+pub(crate) const fn sanitize_socket(socket: &SocketAddr) -> Result<(), Error> {
     if socket.port() == 0u16 {
         return Err(Error::InvalidPort(socket.port()));
     }

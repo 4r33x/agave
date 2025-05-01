@@ -47,6 +47,7 @@ impl LeaderSchedule {
             .collect()
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn get_slot_leaders(&self) -> &[Pubkey] {
         &self.slot_leaders
     }

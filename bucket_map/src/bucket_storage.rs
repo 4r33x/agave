@@ -185,7 +185,7 @@ impl<O: BucketOccupied> BucketStorage<O> {
         _ = remove_file(&self.path);
     }
 
-    pub fn max_search(&self) -> u64 {
+    pub const fn max_search(&self) -> u64 {
         self.max_search as u64
     }
 

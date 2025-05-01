@@ -71,7 +71,7 @@ impl AccountHashesFile {
     }
 
     /// # hashes stored in this file
-    fn count(&self) -> usize {
+    const fn count(&self) -> usize {
         self.count
     }
 
@@ -330,7 +330,7 @@ impl CumulativeHashesFromFiles {
     }
 
     /// total # of items referenced
-    fn total_count(&self) -> usize {
+    const fn total_count(&self) -> usize {
         self.cumulative.total_count
     }
 
@@ -510,8 +510,8 @@ impl AccountsHasher<'_> {
     pub fn compute_merkle_root_recurse(hashes: Vec<Hash>, fanout: usize) -> Hash {
         Self::compute_merkle_root_loop(hashes, fanout, |t| t)
     }
-
-    pub fn div_ceil(x: usize, y: usize) -> usize {
+    //manual/wrong div ceil impl?
+    pub const fn div_ceil(x: usize, y: usize) -> usize {
         let mut result = x / y;
         if x % y != 0 {
             result += 1;
@@ -1262,7 +1262,7 @@ pub enum AccountsHashKind {
     Incremental(IncrementalAccountsHash),
 }
 impl AccountsHashKind {
-    pub fn as_hash(&self) -> &Hash {
+    pub const fn as_hash(&self) -> &Hash {
         match self {
             AccountsHashKind::Full(AccountsHash(hash))
             | AccountsHashKind::Incremental(IncrementalAccountsHash(hash)) => hash,

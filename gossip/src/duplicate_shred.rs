@@ -39,12 +39,12 @@ pub struct DuplicateShred {
 
 impl DuplicateShred {
     #[inline]
-    pub(crate) fn num_chunks(&self) -> u8 {
+    pub(crate) const fn num_chunks(&self) -> u8 {
         self.num_chunks
     }
 
     #[inline]
-    pub(crate) fn chunk_index(&self) -> u8 {
+    pub(crate) const fn chunk_index(&self) -> u8 {
         self.chunk_index
     }
 }
@@ -93,7 +93,7 @@ pub enum Error {
 
 impl Error {
     /// Errors indicating that the initial node submitted an invalid duplicate proof case
-    pub(crate) fn is_non_critical(&self) -> bool {
+    pub(crate) const fn is_non_critical(&self) -> bool {
         match self {
             Self::SlotMismatch
             | Self::InvalidShredVersion(_)

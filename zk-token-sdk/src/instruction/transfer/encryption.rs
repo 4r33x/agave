@@ -28,11 +28,11 @@ impl TransferAmountCiphertext {
         (Self(grouped_ciphertext), opening)
     }
 
-    pub fn get_commitment(&self) -> &PedersenCommitment {
+    pub const fn get_commitment(&self) -> &PedersenCommitment {
         &self.0.commitment
     }
 
-    pub fn get_source_handle(&self) -> &DecryptHandle {
+    pub const fn get_source_handle(&self) -> &DecryptHandle {
         // `TransferAmountCiphertext` is a wrapper for `GroupedElGamalCiphertext<3>`, which
         // holds exactly three decryption handles.
         self.0.handles.first().unwrap()
@@ -73,11 +73,11 @@ impl FeeEncryption {
         (Self(grouped_ciphertext), opening)
     }
 
-    pub fn get_commitment(&self) -> &PedersenCommitment {
+    pub const fn get_commitment(&self) -> &PedersenCommitment {
         &self.0.commitment
     }
 
-    pub fn get_destination_handle(&self) -> &DecryptHandle {
+    pub const fn get_destination_handle(&self) -> &DecryptHandle {
         // `FeeEncryption` is a wrapper for `GroupedElGamalCiphertext<2>`, which holds
         // exactly two decryption handles.
         self.0.handles.first().unwrap()

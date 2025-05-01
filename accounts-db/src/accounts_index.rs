@@ -429,6 +429,7 @@ impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> AccountsIndex<T, U> {
         AccountsIndexIterator::new(self, range, returns_items)
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     /// is the accounts index using disk as a backing store
     pub fn is_disk_index_enabled(&self) -> bool {
         self.storage.storage.is_disk_index_enabled()
@@ -1063,7 +1064,7 @@ impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> AccountsIndex<T, U> {
             });
         });
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     /// get stats related to startup
     pub(crate) fn get_startup_stats(&self) -> &StartupStats {
         &self.storage.storage.startup_stats
@@ -1645,7 +1646,7 @@ impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> AccountsIndex<T, U> {
     /// no roots in the slot list between newest_root_in_slot_list and max_clean_root_exclusive, (otherwise there
     /// would be a bigger newest_root_in_slot_list, which is a contradiction), then we know slot must be
     /// an unrooted slot less than max_clean_root_exclusive and thus safe to clean as well.
-    fn can_purge_older_entries(
+    const fn can_purge_older_entries(
         max_clean_root_exclusive: Slot,
         newest_root_in_slot_list: Slot,
         slot: Slot,

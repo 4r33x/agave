@@ -1877,7 +1877,10 @@ fn check_poh_speed(bank: &Bank, maybe_hash_samples: Option<u64>) -> Result<(), V
     Ok(())
 }
 
-fn maybe_cluster_restart_with_hard_fork(config: &ValidatorConfig, root_slot: Slot) -> Option<Slot> {
+const fn maybe_cluster_restart_with_hard_fork(
+    config: &ValidatorConfig,
+    root_slot: Slot,
+) -> Option<Slot> {
     // detect cluster restart (hard fork) indirectly via wait_for_supermajority...
     if let Some(wait_slot_for_supermajority) = config.wait_for_supermajority {
         if wait_slot_for_supermajority == root_slot {
@@ -2139,7 +2142,7 @@ pub struct ProcessBlockStore<'a> {
 
 impl<'a> ProcessBlockStore<'a> {
     #[allow(clippy::too_many_arguments)]
-    fn new(
+    const fn new(
         id: &'a Pubkey,
         vote_account: &'a Pubkey,
         start_progress: &'a Arc<RwLock<ValidatorStartProgress>>,

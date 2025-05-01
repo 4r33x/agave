@@ -301,7 +301,7 @@ impl RemoteWalletInfo {
 }
 
 /// Helper to determine if a device is a valid HID
-pub fn is_valid_hid_device(usage_page: u16, interface_number: i32) -> bool {
+pub const fn is_valid_hid_device(usage_page: u16, interface_number: i32) -> bool {
     usage_page == HID_GLOBAL_USAGE_PAGE || interface_number == HID_USB_DEVICE_CLASS as i32
 }
 

@@ -78,7 +78,7 @@ pub struct Consumer {
 }
 
 impl Consumer {
-    pub fn new(
+    pub const fn new(
         committer: Committer,
         transaction_recorder: TransactionRecorder,
         qos_service: QosService,

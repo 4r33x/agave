@@ -150,7 +150,7 @@ impl SharedBufferBgReader {
         }
     }
 
-    fn default_wait_timeout() -> Duration {
+    const fn default_wait_timeout() -> Duration {
         Duration::from_millis(100) // short enough to be unnoticable in case of trouble, long enough for efficient waiting
     }
     fn wait_for_new_buffer(&self) -> bool {

@@ -53,7 +53,7 @@ pub struct ValidatorVoteKeypairs {
 }
 
 impl ValidatorVoteKeypairs {
-    pub fn new(node_keypair: Keypair, vote_keypair: Keypair, stake_keypair: Keypair) -> Self {
+    pub const fn new(node_keypair: Keypair, vote_keypair: Keypair, stake_keypair: Keypair) -> Self {
         Self {
             node_keypair,
             vote_keypair,

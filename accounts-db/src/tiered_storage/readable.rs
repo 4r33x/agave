@@ -53,14 +53,14 @@ impl TieredStorageReader {
     }
 
     /// Returns the footer of the associated HotAccountsFile.
-    pub fn footer(&self) -> &TieredStorageFooter {
+    pub const fn footer(&self) -> &TieredStorageFooter {
         match self {
             Self::Hot(hot) => hot.footer(),
         }
     }
 
     /// Returns the total number of accounts.
-    pub fn num_accounts(&self) -> usize {
+    pub const fn num_accounts(&self) -> usize {
         match self {
             Self::Hot(hot) => hot.num_accounts(),
         }

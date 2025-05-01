@@ -28,11 +28,13 @@ impl InFlightTracker {
         }
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     /// Returns the number of transactions that are in flight for each thread.
     pub fn num_in_flight_per_thread(&self) -> &[usize] {
         &self.num_in_flight_per_thread
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     /// Returns the number of cus that are in flight for each thread.
     pub fn cus_in_flight_per_thread(&self) -> &[u64] {
         &self.cus_in_flight_per_thread

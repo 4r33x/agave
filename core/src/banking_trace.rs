@@ -98,7 +98,7 @@ impl RollingConditionGrouped {
         }
     }
 
-    fn reset(&mut self) {
+    const fn reset(&mut self) {
         self.is_checked = false;
     }
 }
@@ -244,7 +244,7 @@ impl BankingTracer {
         })
     }
 
-    pub fn is_enabled(&self) -> bool {
+    pub const fn is_enabled(&self) -> bool {
         self.active_tracer.is_some()
     }
 
@@ -358,7 +358,7 @@ impl BankingTracer {
         Self::channel_inner(label, active_tracer, sender, receiver)
     }
 
-    fn channel_inner(
+    const fn channel_inner(
         label: ChannelLabel,
         active_tracer: Option<ActiveTracer>,
         sender: Sender<BankingPacketBatch>,
@@ -428,7 +428,7 @@ pub struct TracedSender {
 }
 
 impl TracedSender {
-    fn new(
+    const fn new(
         label: ChannelLabel,
         sender: Sender<BankingPacketBatch>,
         active_tracer: Option<ActiveTracer>,

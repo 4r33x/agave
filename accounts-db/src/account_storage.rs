@@ -265,10 +265,10 @@ impl Drop for ShrinkInProgress<'_> {
 }
 
 impl ShrinkInProgress<'_> {
-    pub fn new_storage(&self) -> &Arc<AccountStorageEntry> {
+    pub const fn new_storage(&self) -> &Arc<AccountStorageEntry> {
         &self.new_store
     }
-    pub(crate) fn old_storage(&self) -> &Arc<AccountStorageEntry> {
+    pub(crate) const fn old_storage(&self) -> &Arc<AccountStorageEntry> {
         &self.old_store
     }
 }

@@ -128,7 +128,7 @@ impl MockBankCallback {
     }
 
     #[allow(unused)]
-    pub fn override_feature_set(&mut self, new_set: SVMFeatureSet) {
+    pub const fn override_feature_set(&mut self, new_set: SVMFeatureSet) {
         self.feature_set = new_set
     }
 

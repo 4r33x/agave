@@ -310,7 +310,7 @@ enum KeyType {
 }
 
 impl KeyType {
-    fn default_file_name(&self) -> &str {
+    const fn default_file_name(&self) -> &str {
         match self {
             KeyType::ElGamal => "elgamal.json",
             KeyType::Aes128 => "aes128.json",

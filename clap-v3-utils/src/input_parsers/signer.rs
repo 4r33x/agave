@@ -74,7 +74,7 @@ pub struct SignerSource {
 }
 
 impl SignerSource {
-    fn new(kind: SignerSourceKind) -> Self {
+    const fn new(kind: SignerSourceKind) -> Self {
         Self {
             kind,
             derivation_path: None,
@@ -82,7 +82,7 @@ impl SignerSource {
         }
     }
 
-    fn new_legacy(kind: SignerSourceKind) -> Self {
+    const fn new_legacy(kind: SignerSourceKind) -> Self {
         Self {
             kind,
             derivation_path: None,
@@ -278,7 +278,7 @@ pub struct SignerSourceParserBuilder {
 }
 
 impl SignerSourceParserBuilder {
-    pub fn allow_all(mut self) -> Self {
+    pub const fn allow_all(mut self) -> Self {
         self.allow_prompt = true;
         self.allow_file_path = true;
         self.allow_usb = true;
@@ -288,32 +288,32 @@ impl SignerSourceParserBuilder {
         self
     }
 
-    pub fn allow_prompt(mut self) -> Self {
+    pub const fn allow_prompt(mut self) -> Self {
         self.allow_prompt = true;
         self
     }
 
-    pub fn allow_file_path(mut self) -> Self {
+    pub const fn allow_file_path(mut self) -> Self {
         self.allow_file_path = true;
         self
     }
 
-    pub fn allow_usb(mut self) -> Self {
+    pub const fn allow_usb(mut self) -> Self {
         self.allow_usb = true;
         self
     }
 
-    pub fn allow_stdin(mut self) -> Self {
+    pub const fn allow_stdin(mut self) -> Self {
         self.allow_stdin = true;
         self
     }
 
-    pub fn allow_pubkey(mut self) -> Self {
+    pub const fn allow_pubkey(mut self) -> Self {
         self.allow_pubkey = true;
         self
     }
 
-    pub fn allow_legacy(mut self) -> Self {
+    pub const fn allow_legacy(mut self) -> Self {
         self.allow_legacy = true;
         self
     }

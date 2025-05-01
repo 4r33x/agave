@@ -31,7 +31,7 @@ use {
 pub struct RentCollectorWithMetrics(RentCollector);
 
 impl RentCollectorWithMetrics {
-    pub fn new(rent_collector: RentCollector) -> Self {
+    pub const fn new(rent_collector: RentCollector) -> Self {
         Self(rent_collector)
     }
 }

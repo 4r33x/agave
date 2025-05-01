@@ -134,7 +134,7 @@ pub struct StoreAccountsTiming {
 }
 
 impl StoreAccountsTiming {
-    pub fn accumulate(&mut self, other: &Self) {
+    pub const fn accumulate(&mut self, other: &Self) {
         self.store_accounts_elapsed += other.store_accounts_elapsed;
         self.update_index_elapsed += other.update_index_elapsed;
         self.handle_reclaims_elapsed += other.handle_reclaims_elapsed;

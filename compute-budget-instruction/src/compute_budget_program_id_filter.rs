@@ -12,7 +12,7 @@ pub(crate) struct ComputeBudgetProgramIdFilter {
 }
 
 impl ComputeBudgetProgramIdFilter {
-    pub(crate) fn new() -> Self {
+    pub(crate) const fn new() -> Self {
         ComputeBudgetProgramIdFilter {
             flags: [None; FILTER_SIZE as usize],
         }

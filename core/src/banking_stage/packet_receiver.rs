@@ -19,7 +19,7 @@ pub struct PacketReceiver {
 }
 
 impl PacketReceiver {
-    pub fn new(banking_packet_receiver: BankingPacketReceiver) -> Self {
+    pub const fn new(banking_packet_receiver: BankingPacketReceiver) -> Self {
         Self {
             packet_deserializer: PacketDeserializer::new(banking_packet_receiver),
         }

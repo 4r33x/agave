@@ -254,7 +254,7 @@ pub struct SocketConfig {
 }
 
 impl SocketConfig {
-    pub fn reuseport(mut self, reuseport: bool) -> Self {
+    pub const fn reuseport(mut self, reuseport: bool) -> Self {
         self.reuseport = reuseport;
         self
     }
@@ -265,7 +265,7 @@ impl SocketConfig {
     /// For example, if you specify `16MB`, the kernel will configure the
     /// socket to use `32MB`.
     /// See: https://man7.org/linux/man-pages/man7/socket.7.html: SO_RCVBUF
-    pub fn recv_buffer_size(mut self, size: usize) -> Self {
+    pub const fn recv_buffer_size(mut self, size: usize) -> Self {
         self.recv_buffer_size = Some(size);
         self
     }
@@ -276,7 +276,7 @@ impl SocketConfig {
     /// For example, if you specify `16MB`, the kernel will configure the
     /// socket to use `32MB`.
     /// See: https://man7.org/linux/man-pages/man7/socket.7.html: SO_SNDBUF
-    pub fn send_buffer_size(mut self, size: usize) -> Self {
+    pub const fn send_buffer_size(mut self, size: usize) -> Self {
         self.send_buffer_size = Some(size);
         self
     }

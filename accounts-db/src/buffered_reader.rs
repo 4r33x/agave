@@ -33,7 +33,7 @@ pub(crate) struct Stack<const N: usize>([MaybeUninit<u8>; N]);
 
 impl<const N: usize> Stack<N> {
     #[inline(always)]
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         Self([MaybeUninit::uninit(); N])
     }
 }
@@ -80,7 +80,7 @@ impl<'a, T> BufferedReader<'a, T> {
     /// `buffer_size`: how much to try to read at a time
     /// `file_len_valid`: # bytes that are valid in the file, may be less than overall file len
     /// `default_min_read_requirement`: make sure we always have this much data available if we're asked to read
-    pub fn new(
+    pub const fn new(
         backing: T,
         file_len_valid: usize,
         file: &'a File,
@@ -111,7 +111,7 @@ impl<'a, T> BufferedReader<'a, T> {
 
     /// specify the amount of data required to read next time `read` is called
     #[inline(always)]
-    pub fn set_required_data_len(&mut self, len: usize) {
+    pub const fn set_required_data_len(&mut self, len: usize) {
         self.read_requirements = Some(len);
     }
 }
@@ -165,7 +165,7 @@ where
 
 impl<'a, const N: usize> BufferedReader<'a, Stack<N>> {
     /// create a new buffered reader with a stack-allocated buffer
-    pub fn new_stack(
+    pub const fn new_stack(
         file_len_valid: usize,
         file: &'a File,
         default_min_read_requirement: usize,

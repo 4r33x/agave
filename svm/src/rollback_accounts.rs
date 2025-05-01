@@ -77,7 +77,7 @@ impl RollbackAccounts {
     }
 
     /// Number of accounts tracked for rollback
-    pub fn count(&self) -> usize {
+    pub const fn count(&self) -> usize {
         match self {
             Self::FeePayerOnly { .. } | Self::SameNonceAndFeePayer { .. } => 1,
             Self::SeparateNonceAndFeePayer { .. } => 2,

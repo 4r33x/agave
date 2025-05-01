@@ -33,12 +33,12 @@ enum TreeRoot {
 }
 
 impl TreeRoot {
-    pub fn is_pruned(&self) -> bool {
+    pub const fn is_pruned(&self) -> bool {
         matches!(self, Self::PrunedRoot(_))
     }
 
     #[cfg(test)]
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         match self {
             Self::Root(slot) => *slot,
             Self::PrunedRoot(slot) => *slot,
@@ -501,7 +501,7 @@ impl RepairWeight {
         self.root = new_root;
     }
 
-    pub fn root(&self) -> Slot {
+    pub const fn root(&self) -> Slot {
         self.root
     }
 

@@ -175,7 +175,7 @@ impl UdpStats {
 
 impl DiskStats {
     #[cfg_attr(not(target_os = "linux"), allow(dead_code))]
-    fn accumulate(&mut self, other: &DiskStats) {
+    const fn accumulate(&mut self, other: &DiskStats) {
         self.reads_completed += other.reads_completed;
         self.reads_merged += other.reads_merged;
         self.sectors_read += other.sectors_read;

@@ -160,11 +160,11 @@ impl From<Endianness> for u64 {
 pub struct PoseidonHash(pub [u8; HASH_BYTES]);
 
 impl PoseidonHash {
-    pub fn new(hash_array: [u8; HASH_BYTES]) -> Self {
+    pub const fn new(hash_array: [u8; HASH_BYTES]) -> Self {
         Self(hash_array)
     }
 
-    pub fn to_bytes(&self) -> [u8; HASH_BYTES] {
+    pub const fn to_bytes(&self) -> [u8; HASH_BYTES] {
         self.0
     }
 }

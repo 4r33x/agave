@@ -6,7 +6,7 @@ pub struct BatchIdGenerator {
 }
 
 impl BatchIdGenerator {
-    pub fn next(&mut self) -> TransactionBatchId {
+    pub const fn next(&mut self) -> TransactionBatchId {
         let id = self.next_id;
         self.next_id = self.next_id.wrapping_sub(1);
         TransactionBatchId::new(id)

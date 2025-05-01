@@ -165,7 +165,7 @@ enum StoreTo<'a> {
 }
 
 impl StoreTo<'_> {
-    fn is_cached(&self) -> bool {
+    const fn is_cached(&self) -> bool {
         matches!(self, StoreTo::Cache)
     }
 }
@@ -343,7 +343,7 @@ struct CurrentAncientAccountsFile {
 }
 
 impl CurrentAncientAccountsFile {
-    fn new(slot: Slot, append_vec: Arc<AccountStorageEntry>) -> CurrentAncientAccountsFile {
+    const fn new(slot: Slot, append_vec: Arc<AccountStorageEntry>) -> CurrentAncientAccountsFile {
         Self {
             slot_and_accounts_file: Some((slot, append_vec)),
         }
@@ -378,12 +378,12 @@ impl CurrentAncientAccountsFile {
     }
 
     /// note this requires that 'slot_and_accounts_file' is Some
-    fn slot(&self) -> Slot {
+    const fn slot(&self) -> Slot {
         self.slot_and_accounts_file.as_ref().unwrap().0
     }
 
     /// note this requires that 'slot_and_accounts_file' is Some
-    fn accounts_file(&self) -> &Arc<AccountStorageEntry> {
+    const fn accounts_file(&self) -> &Arc<AccountStorageEntry> {
         &self.slot_and_accounts_file.as_ref().unwrap().1
     }
 
@@ -581,13 +581,13 @@ impl IsZeroLamport for AccountFromStorage {
 }
 
 impl AccountFromStorage {
-    pub fn pubkey(&self) -> &Pubkey {
+    pub const fn pubkey(&self) -> &Pubkey {
         &self.pubkey
     }
-    pub fn stored_size(&self) -> usize {
+    pub const fn stored_size(&self) -> usize {
         aligned_stored_size(self.data_len as usize)
     }
-    pub fn data_len(&self) -> usize {
+    pub const fn data_len(&self) -> usize {
         self.data_len as usize
     }
     pub fn new(account: &StoredAccountMeta) -> Self {
@@ -1106,7 +1106,7 @@ impl LoadedAccount<'_> {
             LoadedAccount::Cached(cached_account) => cached_account.hash(),
         }
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     pub fn pubkey(&self) -> &Pubkey {
         match self {
             LoadedAccount::Stored(stored_account) => stored_account.pubkey(),
@@ -1124,7 +1124,7 @@ impl LoadedAccount<'_> {
         }
     }
 
-    pub fn is_cached(&self) -> bool {
+    pub const fn is_cached(&self) -> bool {
         match self {
             LoadedAccount::Stored(_) => false,
             LoadedAccount::Cached(_) => true,
@@ -1346,11 +1346,11 @@ impl AccountStorageEntry {
         self.count() > 0
     }
 
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         self.slot
     }
 
-    pub fn id(&self) -> AccountsFileId {
+    pub const fn id(&self) -> AccountsFileId {
         self.id
     }
 
@@ -1793,7 +1793,7 @@ impl SplitAncientStorages {
     }
 
     /// ancient slots are the first chunks
-    fn is_chunk_ancient(&self, chunk: usize) -> bool {
+    const fn is_chunk_ancient(&self, chunk: usize) -> bool {
         chunk < self.ancient_slot_count
     }
 
@@ -2098,7 +2098,7 @@ impl AccountsDb {
         new
     }
 
-    pub fn file_size(&self) -> u64 {
+    pub const fn file_size(&self) -> u64 {
         self.file_size
     }
 
@@ -3592,7 +3592,7 @@ impl AccountsDb {
     }
 
     #[cfg(feature = "dev-context-only-utils")]
-    pub fn set_storage_access(&mut self, storage_access: StorageAccess) {
+    pub const fn set_storage_access(&mut self, storage_access: StorageAccess) {
         self.storage_access = storage_access;
     }
 
@@ -6881,7 +6881,7 @@ impl AccountsDb {
     }
 
     /// return slot + offset, where offset can be +/-
-    fn apply_offset_to_slot(slot: Slot, offset: i64) -> Slot {
+    const fn apply_offset_to_slot(slot: Slot, offset: i64) -> Slot {
         if offset > 0 {
             slot.saturating_add(offset as u64)
         } else {
@@ -7727,7 +7727,7 @@ impl AccountsDb {
         }
     }
 
-    fn should_not_shrink(alive_bytes: u64, total_bytes: u64) -> bool {
+    const fn should_not_shrink(alive_bytes: u64, total_bytes: u64) -> bool {
         alive_bytes >= total_bytes
     }
 
@@ -9277,7 +9277,7 @@ pub enum CalcAccountsHashKind {
 
 impl CalcAccountsHashKind {
     /// How should zero-lamport accounts be handled by this accounts hash calculation?
-    fn zero_lamport_accounts(&self) -> ZeroLamportAccounts {
+    const fn zero_lamport_accounts(&self) -> ZeroLamportAccounts {
         match self {
             CalcAccountsHashKind::Full => ZeroLamportAccounts::Excluded,
             CalcAccountsHashKind::Incremental => ZeroLamportAccounts::Included,
@@ -9354,11 +9354,13 @@ impl AccountsDb {
         )
     }
 
-    pub fn accounts_delta_hashes(&self) -> &Mutex<HashMap<Slot, AccountsDeltaHash>> {
+    pub const fn accounts_delta_hashes(&self) -> &Mutex<HashMap<Slot, AccountsDeltaHash>> {
         &self.accounts_delta_hashes
     }
 
-    pub fn accounts_hashes(&self) -> &Mutex<HashMap<Slot, (AccountsHash, /*capitalization*/ u64)>> {
+    pub const fn accounts_hashes(
+        &self,
+    ) -> &Mutex<HashMap<Slot, (AccountsHash, /*capitalization*/ u64)>> {
         &self.accounts_hashes
     }
 
@@ -9520,7 +9522,7 @@ impl AccountsDb {
         )
     }
 
-    pub fn uncleaned_pubkeys(&self) -> &DashMap<Slot, Vec<Pubkey>, BuildNoHashHasher<Slot>> {
+    pub const fn uncleaned_pubkeys(&self) -> &DashMap<Slot, Vec<Pubkey>, BuildNoHashHasher<Slot>> {
         &self.uncleaned_pubkeys
     }
 }
@@ -9528,7 +9530,7 @@ impl AccountsDb {
 // These functions/fields are only usable from a dev context (i.e. tests and benches)
 #[cfg(feature = "dev-context-only-utils")]
 impl<'a> VerifyAccountsHashAndLamportsConfig<'a> {
-    pub fn new_for_test(
+    pub const fn new_for_test(
         ancestors: &'a Ancestors,
         epoch_schedule: &'a EpochSchedule,
         rent_collector: &'a RentCollector,

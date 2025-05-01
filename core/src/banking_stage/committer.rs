@@ -49,7 +49,7 @@ pub struct Committer {
 }
 
 impl Committer {
-    pub fn new(
+    pub const fn new(
         transaction_status_sender: Option<TransactionStatusSender>,
         replay_vote_sender: ReplayVoteSender,
         prioritization_fee_cache: Arc<PrioritizationFeeCache>,
@@ -61,7 +61,7 @@ impl Committer {
         }
     }
 
-    pub(super) fn transaction_status_sender_enabled(&self) -> bool {
+    pub(super) const fn transaction_status_sender_enabled(&self) -> bool {
         self.transaction_status_sender.is_some()
     }
 

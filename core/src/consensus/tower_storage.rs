@@ -56,7 +56,7 @@ impl SavedTowerVersions {
         bincode::serialize_into(file, self).map_err(|e| e.into())
     }
 
-    fn pubkey(&self) -> Pubkey {
+    const fn pubkey(&self) -> Pubkey {
         match self {
             SavedTowerVersions::V1_17_14(t) => t.node_pubkey,
             SavedTowerVersions::Current(t) => t.node_pubkey,
@@ -139,7 +139,7 @@ pub struct FileTowerStorage {
 }
 
 impl FileTowerStorage {
-    pub fn new(tower_path: PathBuf) -> Self {
+    pub const fn new(tower_path: PathBuf) -> Self {
         Self { tower_path }
     }
 

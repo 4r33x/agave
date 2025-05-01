@@ -64,7 +64,7 @@ pub fn meta_from(account: &AccountSharedData) -> Option<Meta> {
     from(account).and_then(|state: StakeStateV2| state.meta())
 }
 
-pub(crate) fn new_warmup_cooldown_rate_epoch() -> Option<Epoch> {
+pub(crate) const fn new_warmup_cooldown_rate_epoch() -> Option<Epoch> {
     PERPETUAL_NEW_WARMUP_COOLDOWN_RATE_EPOCH
 }
 
@@ -1080,7 +1080,7 @@ enum MergeKind {
 }
 
 impl MergeKind {
-    fn meta(&self) -> &Meta {
+    const fn meta(&self) -> &Meta {
         match self {
             Self::Inactive(meta, _, _) => meta,
             Self::ActivationEpoch(meta, _, _) => meta,
@@ -1088,7 +1088,7 @@ impl MergeKind {
         }
     }
 
-    fn active_stake(&self) -> Option<&Stake> {
+    const fn active_stake(&self) -> Option<&Stake> {
         match self {
             Self::Inactive(_, _, _) => None,
             Self::ActivationEpoch(_, stake, _) => Some(stake),

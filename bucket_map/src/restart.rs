@@ -178,7 +178,7 @@ impl Restart {
     }
 
     /// expected len of file given this many buckets
-    fn expected_len(max_buckets: usize) -> usize {
+    const fn expected_len(max_buckets: usize) -> usize {
         std::mem::size_of::<Header>() + max_buckets * std::mem::size_of::<OneIndexBucket>()
     }
 

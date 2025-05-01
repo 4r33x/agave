@@ -78,7 +78,7 @@ impl ProcessedTransaction {
         }
     }
 
-    pub fn execution_details(&self) -> Option<&TransactionExecutionDetails> {
+    pub const fn execution_details(&self) -> Option<&TransactionExecutionDetails> {
         match self {
             Self::Executed(context) => Some(&context.execution_details),
             Self::FeesOnly { .. } => None,

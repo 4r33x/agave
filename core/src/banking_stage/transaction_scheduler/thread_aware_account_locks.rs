@@ -401,7 +401,7 @@ impl ThreadSet {
     }
 
     #[inline(always)]
-    pub(crate) fn num_threads(&self) -> u32 {
+    pub(crate) const fn num_threads(&self) -> u32 {
         self.0.count_ones()
     }
 
@@ -416,17 +416,17 @@ impl ThreadSet {
     }
 
     #[inline(always)]
-    pub(crate) fn contains(&self, thread_id: ThreadId) -> bool {
+    pub(crate) const fn contains(&self, thread_id: ThreadId) -> bool {
         self.0 & Self::as_flag(thread_id) != 0
     }
 
     #[inline(always)]
-    pub(crate) fn insert(&mut self, thread_id: ThreadId) {
+    pub(crate) const fn insert(&mut self, thread_id: ThreadId) {
         self.0 |= Self::as_flag(thread_id);
     }
 
     #[inline(always)]
-    pub(crate) fn remove(&mut self, thread_id: ThreadId) {
+    pub(crate) const fn remove(&mut self, thread_id: ThreadId) {
         self.0 &= !Self::as_flag(thread_id);
     }
 

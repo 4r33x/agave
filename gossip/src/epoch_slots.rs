@@ -206,14 +206,14 @@ impl CompressedSlots {
         CompressedSlots::Uncompressed(Uncompressed::new(max_size))
     }
 
-    pub fn first_slot(&self) -> Slot {
+    pub const fn first_slot(&self) -> Slot {
         match self {
             CompressedSlots::Uncompressed(a) => a.first_slot,
             CompressedSlots::Flate2(b) => b.first_slot,
         }
     }
 
-    pub fn num_slots(&self) -> usize {
+    pub const fn num_slots(&self) -> usize {
         match self {
             CompressedSlots::Uncompressed(a) => a.num,
             CompressedSlots::Flate2(b) => b.num,
@@ -282,7 +282,7 @@ impl fmt::Debug for EpochSlots {
 }
 
 impl EpochSlots {
-    pub fn new(from: Pubkey, now: u64) -> Self {
+    pub const fn new(from: Pubkey, now: u64) -> Self {
         Self {
             from,
             wallclock: now,

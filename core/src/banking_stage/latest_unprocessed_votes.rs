@@ -115,27 +115,27 @@ impl LatestValidatorVotePacket {
         self.vote.as_ref().unwrap().clone()
     }
 
-    pub fn vote_pubkey(&self) -> Pubkey {
+    pub const fn vote_pubkey(&self) -> Pubkey {
         self.vote_pubkey
     }
 
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         self.slot
     }
 
-    pub(crate) fn hash(&self) -> Hash {
+    pub(crate) const fn hash(&self) -> Hash {
         self.hash
     }
 
-    pub fn timestamp(&self) -> Option<UnixTimestamp> {
+    pub const fn timestamp(&self) -> Option<UnixTimestamp> {
         self.timestamp
     }
 
-    pub fn is_vote_taken(&self) -> bool {
+    pub const fn is_vote_taken(&self) -> bool {
         self.vote.is_none()
     }
 
-    pub fn take_vote(&mut self) -> Option<Arc<ImmutableDeserializedPacket>> {
+    pub const fn take_vote(&mut self) -> Option<Arc<ImmutableDeserializedPacket>> {
         self.vote.take()
     }
 }
@@ -147,15 +147,15 @@ pub(crate) struct VoteBatchInsertionMetrics {
 }
 
 impl VoteBatchInsertionMetrics {
-    pub fn total_dropped_packets(&self) -> usize {
+    pub const fn total_dropped_packets(&self) -> usize {
         self.num_dropped_gossip + self.num_dropped_tpu
     }
 
-    pub fn dropped_gossip_packets(&self) -> usize {
+    pub const fn dropped_gossip_packets(&self) -> usize {
         self.num_dropped_gossip
     }
 
-    pub fn dropped_tpu_packets(&self) -> usize {
+    pub const fn dropped_tpu_packets(&self) -> usize {
         self.num_dropped_tpu
     }
 }

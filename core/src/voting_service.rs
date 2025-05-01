@@ -36,7 +36,7 @@ pub enum VoteOp {
 }
 
 impl VoteOp {
-    fn tx(&self) -> &Transaction {
+    const fn tx(&self) -> &Transaction {
         match self {
             VoteOp::PushVote { tx, .. } => tx,
             VoteOp::RefreshVote { tx, .. } => tx,

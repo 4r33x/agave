@@ -121,7 +121,7 @@ impl RuntimeTransaction<SanitizedTransaction> {
         Ok(tx)
     }
 
-    fn load_dynamic_metadata(&mut self) -> Result<()> {
+    const fn load_dynamic_metadata(&mut self) -> Result<()> {
         Ok(())
     }
 }

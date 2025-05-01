@@ -776,13 +776,13 @@ pub fn update_commission<S: std::hash::BuildHasher>(
 }
 
 /// Given a proposed new commission, returns true if this would be a commission increase, false otherwise
-pub fn is_commission_increase(vote_state: &VoteState, commission: u8) -> bool {
+pub const fn is_commission_increase(vote_state: &VoteState, commission: u8) -> bool {
     commission > vote_state.commission
 }
 
 /// Given the current slot and epoch schedule, determine if a commission change
 /// is allowed
-pub fn is_commission_update_allowed(slot: Slot, epoch_schedule: &EpochSchedule) -> bool {
+pub const fn is_commission_update_allowed(slot: Slot, epoch_schedule: &EpochSchedule) -> bool {
     // always allowed during warmup epochs
     if let Some(relative_slot) = slot
         .saturating_sub(epoch_schedule.first_normal_slot)

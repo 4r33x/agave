@@ -27,7 +27,7 @@ pub(crate) struct TransactionState<Tx> {
 
 impl<Tx> TransactionState<Tx> {
     /// Creates a new `TransactionState` in the `Unprocessed` state.
-    pub(crate) fn new(transaction: Tx, max_age: MaxAge, priority: u64, cost: u64) -> Self {
+    pub(crate) const fn new(transaction: Tx, max_age: MaxAge, priority: u64, cost: u64) -> Self {
         Self {
             transaction: Some(transaction),
             max_age,
@@ -39,12 +39,12 @@ impl<Tx> TransactionState<Tx> {
     /// Return the priority of the transaction.
     /// This is *not* the same as the `compute_unit_price` of the transaction.
     /// The priority is used to order transactions for processing.
-    pub(crate) fn priority(&self) -> u64 {
+    pub(crate) const fn priority(&self) -> u64 {
         self.priority
     }
 
     /// Return the cost of the transaction.
-    pub(crate) fn cost(&self) -> u64 {
+    pub(crate) const fn cost(&self) -> u64 {
         self.cost
     }
 
@@ -53,7 +53,7 @@ impl<Tx> TransactionState<Tx> {
     ///
     /// # Panics
     /// This method will panic if the transaction has already been scheduled.
-    pub(crate) fn take_transaction_for_scheduling(&mut self) -> (Tx, MaxAge) {
+    pub(crate) const fn take_transaction_for_scheduling(&mut self) -> (Tx, MaxAge) {
         let tx = self
             .transaction
             .take()
@@ -77,7 +77,7 @@ impl<Tx> TransactionState<Tx> {
     ///
     /// # Panics
     /// This method will panic if the transaction is in the `Pending` state.
-    pub(crate) fn transaction(&self) -> &Tx {
+    pub(crate) const fn transaction(&self) -> &Tx {
         self.transaction
             .as_ref()
             .expect("transaction is not pending")

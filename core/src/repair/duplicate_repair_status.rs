@@ -42,7 +42,7 @@ pub enum DuplicateAncestorDecision {
 }
 
 impl DuplicateAncestorDecision {
-    pub fn is_retryable(&self) -> bool {
+    pub const fn is_retryable(&self) -> bool {
         match self {
             // If we get a bad sample from malicious validators, then retry
             DuplicateAncestorDecision::InvalidSample
@@ -56,7 +56,7 @@ impl DuplicateAncestorDecision {
         }
     }
 
-    pub fn repair_status(&self) -> Option<&DuplicateSlotRepairStatus> {
+    pub const fn repair_status(&self) -> Option<&DuplicateSlotRepairStatus> {
         match self {
             DuplicateAncestorDecision::InvalidSample
             | DuplicateAncestorDecision::SampleNotDuplicateConfirmed => None,
@@ -67,7 +67,7 @@ impl DuplicateAncestorDecision {
         }
     }
 
-    pub fn repair_status_mut(&mut self) -> Option<&mut DuplicateSlotRepairStatus> {
+    pub const fn repair_status_mut(&mut self) -> Option<&mut DuplicateSlotRepairStatus> {
         match self {
             DuplicateAncestorDecision::InvalidSample
             | DuplicateAncestorDecision::SampleNotDuplicateConfirmed => None,
@@ -110,7 +110,7 @@ pub enum AncestorRequestType {
 }
 
 impl AncestorRequestType {
-    pub fn is_pruned(&self) -> bool {
+    pub const fn is_pruned(&self) -> bool {
         matches!(self, Self::PopularPruned)
     }
 }
@@ -147,7 +147,7 @@ impl AncestorRequestDecision {
             })
     }
 
-    pub fn is_retryable(&self) -> bool {
+    pub const fn is_retryable(&self) -> bool {
         self.decision.is_retryable()
     }
 }
@@ -250,7 +250,7 @@ impl AncestorRequestStatus {
         None
     }
 
-    pub fn request_type(&self) -> AncestorRequestType {
+    pub const fn request_type(&self) -> AncestorRequestType {
         self.request_type
     }
 

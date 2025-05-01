@@ -1137,12 +1137,12 @@ impl<'a> AccountsToStore<'a> {
     }
 
     /// true if a request to 'get' 'Overflow' would return accounts & hashes
-    pub fn has_overflow(&self) -> bool {
+    pub const fn has_overflow(&self) -> bool {
         self.index_first_item_overflow < self.accounts.len()
     }
 
     /// return # required bytes for the given selector
-    pub fn get_bytes(&self, selector: StorageSelector) -> usize {
+    pub const fn get_bytes(&self, selector: StorageSelector) -> usize {
         match selector {
             StorageSelector::Primary => self.bytes_primary,
             StorageSelector::Overflow => self.bytes_overflow,
@@ -1158,7 +1158,7 @@ impl<'a> AccountsToStore<'a> {
         &self.accounts[range]
     }
 
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         self.slot
     }
 }

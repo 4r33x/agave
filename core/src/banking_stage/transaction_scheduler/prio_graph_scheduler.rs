@@ -28,7 +28,7 @@ use {
 };
 
 #[inline(always)]
-fn passthrough_priority(
+const fn passthrough_priority(
     id: &TransactionPriorityId,
     _graph_node: &GraphNode<TransactionPriorityId>,
 ) -> TransactionPriorityId {

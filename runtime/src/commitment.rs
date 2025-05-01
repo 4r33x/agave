@@ -24,15 +24,15 @@ impl BlockCommitment {
         self.commitment[confirmation_count - 1]
     }
 
-    pub fn increase_rooted_stake(&mut self, stake: u64) {
+    pub const fn increase_rooted_stake(&mut self, stake: u64) {
         self.commitment[MAX_LOCKOUT_HISTORY] += stake;
     }
 
-    pub fn get_rooted_stake(&self) -> u64 {
+    pub const fn get_rooted_stake(&self) -> u64 {
         self.commitment[MAX_LOCKOUT_HISTORY]
     }
 
-    pub fn new(commitment: BlockCommitmentArray) -> Self {
+    pub const fn new(commitment: BlockCommitmentArray) -> Self {
         Self { commitment }
     }
 }
@@ -65,7 +65,7 @@ impl std::fmt::Debug for BlockCommitmentCache {
 }
 
 impl BlockCommitmentCache {
-    pub fn new(
+    pub const fn new(
         block_commitment: HashMap<Slot, BlockCommitment>,
         total_stake: u64,
         commitment_slots: CommitmentSlots,
@@ -81,37 +81,37 @@ impl BlockCommitmentCache {
         self.block_commitment.get(&slot)
     }
 
-    pub fn total_stake(&self) -> u64 {
+    pub const fn total_stake(&self) -> u64 {
         self.total_stake
     }
 
-    pub fn slot(&self) -> Slot {
+    pub const fn slot(&self) -> Slot {
         self.commitment_slots.slot
     }
 
-    pub fn root(&self) -> Slot {
+    pub const fn root(&self) -> Slot {
         self.commitment_slots.root
     }
 
-    pub fn highest_confirmed_slot(&self) -> Slot {
+    pub const fn highest_confirmed_slot(&self) -> Slot {
         self.commitment_slots.highest_confirmed_slot
     }
 
-    pub fn highest_super_majority_root(&self) -> Slot {
+    pub const fn highest_super_majority_root(&self) -> Slot {
         self.commitment_slots.highest_super_majority_root
     }
 
-    pub fn commitment_slots(&self) -> CommitmentSlots {
+    pub const fn commitment_slots(&self) -> CommitmentSlots {
         self.commitment_slots
     }
 
-    pub fn highest_gossip_confirmed_slot(&self) -> Slot {
+    pub const fn highest_gossip_confirmed_slot(&self) -> Slot {
         // TODO: combine bank caches
         // Currently, this information is provided by OptimisticallyConfirmedBank::bank.slot()
         self.highest_confirmed_slot()
     }
 
-    pub fn slot_with_commitment(&self, commitment_level: CommitmentLevel) -> Slot {
+    pub const fn slot_with_commitment(&self, commitment_level: CommitmentLevel) -> Slot {
         match commitment_level {
             CommitmentLevel::Processed => self.slot(),
             CommitmentLevel::Confirmed => self.highest_gossip_confirmed_slot(),
@@ -180,20 +180,20 @@ impl BlockCommitmentCache {
         }
     }
 
-    pub fn set_highest_confirmed_slot(&mut self, slot: Slot) {
+    pub const fn set_highest_confirmed_slot(&mut self, slot: Slot) {
         self.commitment_slots.highest_confirmed_slot = slot;
     }
 
-    pub fn set_highest_super_majority_root(&mut self, root: Slot) {
+    pub const fn set_highest_super_majority_root(&mut self, root: Slot) {
         self.commitment_slots.highest_super_majority_root = root;
     }
 
-    pub fn initialize_slots(&mut self, slot: Slot, root: Slot) {
+    pub const fn initialize_slots(&mut self, slot: Slot, root: Slot) {
         self.commitment_slots.slot = slot;
         self.commitment_slots.root = root;
     }
 
-    pub fn set_all_slots(&mut self, slot: Slot, root: Slot) {
+    pub const fn set_all_slots(&mut self, slot: Slot, root: Slot) {
         self.commitment_slots.slot = slot;
         self.commitment_slots.highest_confirmed_slot = slot;
         self.commitment_slots.root = root;

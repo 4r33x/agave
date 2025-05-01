@@ -124,15 +124,15 @@ impl ForkInfo {
     }
 
     /// Returns if the fork rooted at this node is included in fork choice
-    fn is_candidate(&self) -> bool {
+    const fn is_candidate(&self) -> bool {
         self.latest_invalid_ancestor.is_none()
     }
 
-    fn is_duplicate_confirmed(&self) -> bool {
+    const fn is_duplicate_confirmed(&self) -> bool {
         self.is_duplicate_confirmed
     }
 
-    fn set_duplicate_confirmed(&mut self) {
+    const fn set_duplicate_confirmed(&mut self) {
         self.is_duplicate_confirmed = true;
         self.latest_invalid_ancestor = None;
     }
@@ -320,7 +320,7 @@ impl HeaviestSubtreeForkChoice {
         self.fork_infos.get(key).map(|fork_info| fork_info.height)
     }
 
-    pub fn tree_root(&self) -> SlotHashKey {
+    pub const fn tree_root(&self) -> SlotHashKey {
         self.tree_root
     }
 
@@ -843,7 +843,7 @@ impl HeaviestSubtreeForkChoice {
         }
     }
 
-    fn ancestor_iterator(&self, start_slot_hash_key: SlotHashKey) -> AncestorIterator {
+    const fn ancestor_iterator(&self, start_slot_hash_key: SlotHashKey) -> AncestorIterator {
         AncestorIterator::new(start_slot_hash_key, &self.fork_infos)
     }
 
@@ -1391,7 +1391,7 @@ struct AncestorIterator<'a> {
 }
 
 impl<'a> AncestorIterator<'a> {
-    fn new(
+    const fn new(
         start_slot_hash_key: SlotHashKey,
         fork_infos: &'a HashMap<SlotHashKey, ForkInfo>,
     ) -> Self {

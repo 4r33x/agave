@@ -225,7 +225,7 @@ fn shred_gpu_offsets(
     merkle_roots_offsets: impl IntoIterator<Item = Option<usize>>,
     recycler_cache: &RecyclerCache,
 ) -> (TxOffset, TxOffset, TxOffset) {
-    fn add_offset(range: Range<usize>, offset: usize) -> Range<usize> {
+    const fn add_offset(range: Range<usize>, offset: usize) -> Range<usize> {
         range.start + offset..range.end + offset
     }
     let mut signature_offsets = recycler_cache.offsets().allocate("shred_signatures");

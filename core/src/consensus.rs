@@ -62,7 +62,7 @@ pub enum ThresholdDecision {
 }
 
 impl ThresholdDecision {
-    pub fn passed(&self) -> bool {
+    pub const fn passed(&self) -> bool {
         matches!(self, Self::PassedThreshold)
     }
 }
@@ -149,7 +149,7 @@ impl SwitchForkDecision {
         }
     }
 
-    pub fn can_vote(&self) -> bool {
+    pub const fn can_vote(&self) -> bool {
         match self {
             SwitchForkDecision::FailedSwitchThreshold(_, _) => false,
             SwitchForkDecision::FailedSwitchDuplicateRollback(_) => false,
@@ -188,7 +188,7 @@ pub enum TowerVersions {
 }
 
 impl TowerVersions {
-    pub fn new_current(tower: Tower) -> Self {
+    pub const fn new_current(tower: Tower) -> Self {
         Self::Current(tower)
     }
 
@@ -551,7 +551,7 @@ impl Tower {
         self.vote_state.tower()
     }
 
-    pub(crate) fn last_vote_tx_blockhash(&self) -> BlockhashStatus {
+    pub(crate) const fn last_vote_tx_blockhash(&self) -> BlockhashStatus {
         self.last_vote_tx_blockhash
     }
 
@@ -594,15 +594,15 @@ impl Tower {
         }
     }
 
-    pub fn refresh_last_vote_tx_blockhash(&mut self, new_vote_tx_blockhash: Hash) {
+    pub const fn refresh_last_vote_tx_blockhash(&mut self, new_vote_tx_blockhash: Hash) {
         self.last_vote_tx_blockhash = BlockhashStatus::Blockhash(new_vote_tx_blockhash);
     }
 
-    pub(crate) fn mark_last_vote_tx_blockhash_non_voting(&mut self) {
+    pub(crate) const fn mark_last_vote_tx_blockhash_non_voting(&mut self) {
         self.last_vote_tx_blockhash = BlockhashStatus::NonVoting;
     }
 
-    pub(crate) fn mark_last_vote_tx_blockhash_hot_spare(&mut self) {
+    pub(crate) const fn mark_last_vote_tx_blockhash_hot_spare(&mut self) {
         self.last_vote_tx_blockhash = BlockhashStatus::HotSpare;
     }
 
@@ -719,7 +719,7 @@ impl Tower {
         Some((self.last_voted_slot()?, self.last_vote.hash()))
     }
 
-    pub fn stray_restored_slot(&self) -> Option<Slot> {
+    pub const fn stray_restored_slot(&self) -> Option<Slot> {
         self.stray_restored_slot
     }
 
@@ -757,7 +757,7 @@ impl Tower {
     // which establishes the origin of trust (i.e. root) whether booting from genesis (slot 0) or
     // snapshot (slot N). In other words, there should be no possibility a Tower doesn't have
     // root, unlike young vote accounts.
-    pub fn root(&self) -> Slot {
+    pub const fn root(&self) -> Slot {
         self.vote_state.root_slot.unwrap()
     }
 
@@ -1263,7 +1263,7 @@ impl Tower {
         decision
     }
 
-    fn is_first_switch_check(&self) -> bool {
+    const fn is_first_switch_check(&self) -> bool {
         self.last_switch_threshold_check.is_none()
     }
 
@@ -1636,7 +1636,7 @@ impl Tower {
 
     // Updating root is needed to correctly restore from newly-saved tower for the next
     // boot
-    fn initialize_root(&mut self, root: Slot) {
+    const fn initialize_root(&mut self, root: Slot) {
         self.vote_state.root_slot = Some(root);
     }
 
@@ -1686,7 +1686,7 @@ impl TowerError {
             false
         }
     }
-    pub fn is_too_old(&self) -> bool {
+    pub const fn is_too_old(&self) -> bool {
         matches!(self, TowerError::TooOldTower(_, _))
     }
 }
@@ -1698,7 +1698,7 @@ pub enum ExternalRootSource {
 }
 
 impl ExternalRootSource {
-    fn root(&self) -> Slot {
+    const fn root(&self) -> Slot {
         match self {
             ExternalRootSource::Tower(slot) => *slot,
             ExternalRootSource::HardFork(slot) => *slot,

@@ -6,11 +6,15 @@ pub struct InstructionDataLenBuilder {
 }
 
 impl InstructionDataLenBuilder {
-    pub fn process_instruction(&mut self, _program_id: &Pubkey, instruction: &SVMInstruction) {
+    pub const fn process_instruction(
+        &mut self,
+        _program_id: &Pubkey,
+        instruction: &SVMInstruction,
+    ) {
         self.value = self.value.saturating_add(instruction.data.len() as u16);
     }
 
-    pub fn build(self) -> u16 {
+    pub const fn build(self) -> u16 {
         self.value
     }
 }

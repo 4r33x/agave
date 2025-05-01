@@ -129,7 +129,7 @@ impl Default for ComputeBudget {
 }
 
 impl ComputeBudget {
-    pub fn from_budget_and_cost(
+    pub const fn from_budget_and_cost(
         budget: &SVMTransactionExecutionBudget,
         cost: &SVMTransactionExecutionCost,
     ) -> Self {
@@ -183,7 +183,7 @@ impl ComputeBudget {
         }
     }
 
-    pub fn to_budget(&self) -> SVMTransactionExecutionBudget {
+    pub const fn to_budget(&self) -> SVMTransactionExecutionBudget {
         SVMTransactionExecutionBudget {
             compute_unit_limit: self.compute_unit_limit,
             max_instruction_stack_depth: self.max_instruction_stack_depth,
@@ -196,7 +196,7 @@ impl ComputeBudget {
         }
     }
 
-    pub fn to_cost(&self) -> SVMTransactionExecutionCost {
+    pub const fn to_cost(&self) -> SVMTransactionExecutionCost {
         SVMTransactionExecutionCost {
             log_64_units: self.log_64_units,
             create_program_address_units: self.create_program_address_units,
@@ -239,7 +239,7 @@ impl ComputeBudget {
         }
     }
 
-    pub fn get_compute_budget_and_limits(
+    pub const fn get_compute_budget_and_limits(
         &self,
         loaded_accounts_data_size_limit: NonZeroU32,
         fee_details: FeeDetails,

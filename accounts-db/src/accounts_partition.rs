@@ -24,7 +24,7 @@ type RentCollectionCycleParams = (
 );
 type EpochCount = u64;
 
-fn partition_index_from_slot_index(
+const fn partition_index_from_slot_index(
     slot_index_in_epoch: SlotIndex,
     (
         epoch,
@@ -117,7 +117,7 @@ pub fn get_partition_end_indexes(partition: &Partition) -> Vec<PartitionIndex> {
     }
 }
 
-pub fn rent_single_epoch_collection_cycle_params(
+pub const fn rent_single_epoch_collection_cycle_params(
     epoch: Epoch,
     slot_count_per_epoch: SlotCount,
 ) -> RentCollectionCycleParams {
@@ -131,7 +131,7 @@ pub fn rent_single_epoch_collection_cycle_params(
     )
 }
 
-pub fn rent_multi_epoch_collection_cycle_params(
+pub const fn rent_multi_epoch_collection_cycle_params(
     epoch: Epoch,
     slot_count_per_epoch: SlotCount,
     first_normal_epoch: Epoch,
@@ -388,7 +388,7 @@ impl RentPayingAccountsByPartition {
             .get(partition_end_index as usize)
             .unwrap_or(&EMPTY_HASHSET)
     }
-    pub fn is_initialized(&self) -> bool {
+    pub const fn is_initialized(&self) -> bool {
         self.partition_count != 0
     }
 }

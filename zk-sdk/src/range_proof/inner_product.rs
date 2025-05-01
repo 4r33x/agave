@@ -354,7 +354,6 @@ impl InnerProductProof {
             Err(RangeProofVerificationError::AlgebraicRelation)
         }
     }
-
     /// Returns the size in bytes required to serialize the inner
     /// product proof.
     ///

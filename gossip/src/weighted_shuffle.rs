@@ -241,7 +241,7 @@ where
 // which "implicitly" holds those items on the leaves.
 // Nodes without children are never accessed and don't need to be
 // allocated, so the tree size is the second smaller number.
-fn get_num_nodes_and_tree_size(count: usize) -> (/*num_nodes:*/ usize, /*tree_size:*/ usize) {
+const fn get_num_nodes_and_tree_size(count: usize) -> (/*num_nodes:*/ usize, /*tree_size:*/ usize) {
     let mut size: usize = 0;
     let mut nodes: usize = 1;
     while nodes * FANOUT < count {

@@ -31,7 +31,7 @@ pub struct CommitmentAggregationData {
 }
 
 impl CommitmentAggregationData {
-    pub fn new(
+    pub const fn new(
         bank: Arc<Bank>,
         root: Slot,
         total_stake: Stake,

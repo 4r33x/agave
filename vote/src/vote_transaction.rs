@@ -66,7 +66,7 @@ impl VoteTransaction {
         }
     }
 
-    pub fn hash(&self) -> Hash {
+    pub const fn hash(&self) -> Hash {
         match self {
             VoteTransaction::Vote(vote) => vote.hash,
             VoteTransaction::VoteStateUpdate(vote_state_update) => vote_state_update.hash,
@@ -75,7 +75,7 @@ impl VoteTransaction {
         }
     }
 
-    pub fn timestamp(&self) -> Option<UnixTimestamp> {
+    pub const fn timestamp(&self) -> Option<UnixTimestamp> {
         match self {
             VoteTransaction::Vote(vote) => vote.timestamp,
             VoteTransaction::VoteStateUpdate(vote_state_update)
@@ -86,7 +86,7 @@ impl VoteTransaction {
         }
     }
 
-    pub fn set_timestamp(&mut self, ts: Option<UnixTimestamp>) {
+    pub const fn set_timestamp(&mut self, ts: Option<UnixTimestamp>) {
         match self {
             VoteTransaction::Vote(vote) => vote.timestamp = ts,
             VoteTransaction::VoteStateUpdate(vote_state_update)
@@ -112,7 +112,7 @@ impl VoteTransaction {
         Some((self.last_voted_slot()?, self.hash()))
     }
 
-    pub fn is_full_tower_vote(&self) -> bool {
+    pub const fn is_full_tower_vote(&self) -> bool {
         matches!(
             self,
             VoteTransaction::VoteStateUpdate(_) | VoteTransaction::TowerSync(_)

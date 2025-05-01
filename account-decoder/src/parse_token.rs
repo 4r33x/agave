@@ -135,7 +135,7 @@ pub fn parse_token_v3(
     }
 }
 
-pub fn convert_account_state(state: AccountState) -> UiAccountState {
+pub const fn convert_account_state(state: AccountState) -> UiAccountState {
     match state {
         AccountState::Uninitialized => UiAccountState::Uninitialized,
         AccountState::Initialized => UiAccountState::Initialized,

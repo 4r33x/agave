@@ -41,7 +41,7 @@ impl<T> StakeAccount<T> {
     }
 
     #[inline]
-    pub(crate) fn stake_state(&self) -> &StakeStateV2 {
+    pub(crate) const fn stake_state(&self) -> &StakeStateV2 {
         &self.stake_state
     }
 }

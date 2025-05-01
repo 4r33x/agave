@@ -63,7 +63,7 @@ pub enum AncestorHashesReplayUpdate {
 }
 
 impl AncestorHashesReplayUpdate {
-    fn slot(&self) -> Slot {
+    const fn slot(&self) -> Slot {
         match self {
             AncestorHashesReplayUpdate::Dead(slot) => *slot,
             AncestorHashesReplayUpdate::DeadDuplicateConfirmed(slot) => *slot,

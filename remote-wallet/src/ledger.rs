@@ -649,7 +649,7 @@ pub fn get_ledger_from_info(
 }
 
 //
-fn is_last_part(p2: u8) -> bool {
+const fn is_last_part(p2: u8) -> bool {
     p2 & P2_MORE == 0
 }
 

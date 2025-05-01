@@ -60,7 +60,7 @@ pub struct FaultyBlockhash {
 
 impl FaultyBlockhash {
     /// Create a new faulty hash generator
-    pub fn new(blockhash: Hash, probability_invalid_blockhash: f64) -> Self {
+    pub const fn new(blockhash: Hash, probability_invalid_blockhash: f64) -> Self {
         Self {
             blockhash,
             probability_invalid_blockhash,

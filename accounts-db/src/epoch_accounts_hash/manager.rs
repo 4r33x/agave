@@ -18,7 +18,7 @@ pub struct Manager {
 
 impl Manager {
     #[must_use]
-    fn _new(state: State) -> Self {
+    const fn _new(state: State) -> Self {
         Self {
             state: Mutex::new(state),
             cvar: Condvar::new(),
@@ -27,13 +27,13 @@ impl Manager {
 
     /// Create a new epoch accounts hash manager, with the initial state set to Invalid
     #[must_use]
-    pub fn new_invalid() -> Self {
+    pub const fn new_invalid() -> Self {
         Self::_new(State::Invalid)
     }
 
     /// Create a new epoch accounts hash manager, with the initial state set to Valid
     #[must_use]
-    pub fn new_valid(epoch_accounts_hash: EpochAccountsHash, slot: Slot) -> Self {
+    pub const fn new_valid(epoch_accounts_hash: EpochAccountsHash, slot: Slot) -> Self {
         Self::_new(State::Valid(epoch_accounts_hash, slot))
     }
 

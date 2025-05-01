@@ -251,7 +251,7 @@ pub struct WindowServiceChannels {
 }
 
 impl WindowServiceChannels {
-    pub fn new(
+    pub const fn new(
         verified_receiver: Receiver<Vec<(shred::Payload, /*is_repaired:*/ bool)>>,
         retransmit_sender: EvictingSender<Vec<shred::Payload>>,
         completed_data_sets_sender: Option<CompletedDataSetsSender>,

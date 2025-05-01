@@ -88,7 +88,10 @@ pub(crate) struct ForwardAddressGetter {
 }
 
 impl ForwardAddressGetter {
-    pub fn new(cluster_info: Arc<ClusterInfo>, poh_recorder: Arc<RwLock<PohRecorder>>) -> Self {
+    pub const fn new(
+        cluster_info: Arc<ClusterInfo>,
+        poh_recorder: Arc<RwLock<PohRecorder>>,
+    ) -> Self {
         Self {
             cluster_info,
             poh_recorder,
@@ -445,7 +448,7 @@ struct VoteClient {
 }
 
 impl VoteClient {
-    fn new(bind_socket: UdpSocket, forward_address_getter: ForwardAddressGetter) -> Self {
+    const fn new(bind_socket: UdpSocket, forward_address_getter: ForwardAddressGetter) -> Self {
         Self {
             bind_socket,
             forward_address_getter,
@@ -483,7 +486,7 @@ struct ConnectionCacheClient {
 }
 
 impl ConnectionCacheClient {
-    fn new(
+    const fn new(
         connection_cache: Arc<ConnectionCache>,
         forward_address_getter: ForwardAddressGetter,
     ) -> Self {

@@ -24,7 +24,7 @@ impl<T: Reset, const SIZE: usize> Pool<T, SIZE> {
         }
     }
 
-    fn len(&self) -> usize {
+    const fn len(&self) -> usize {
         SIZE
     }
 
@@ -74,11 +74,11 @@ impl VmMemoryPool {
         }
     }
 
-    pub fn stack_len(&self) -> usize {
+    pub const fn stack_len(&self) -> usize {
         self.stack.len()
     }
 
-    pub fn heap_len(&self) -> usize {
+    pub const fn heap_len(&self) -> usize {
         self.heap.len()
     }
 

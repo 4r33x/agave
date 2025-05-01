@@ -87,7 +87,7 @@ pub struct ExecutionRecordingConfig {
 }
 
 impl ExecutionRecordingConfig {
-    pub fn new_single_setting(option: bool) -> Self {
+    pub const fn new_single_setting(option: bool) -> Self {
         ExecutionRecordingConfig {
             enable_return_data_recording: option,
             enable_log_recording: option,
@@ -253,7 +253,7 @@ impl<FG: ForkGraph> TransactionBatchProcessor<FG> {
 
     /// Sets the base execution cost for the transactions that this instance of transaction processor
     /// will execute.
-    pub fn set_execution_cost(&mut self, cost: SVMTransactionExecutionCost) {
+    pub const fn set_execution_cost(&mut self, cost: SVMTransactionExecutionCost) {
         self.execution_cost = cost;
     }
 
@@ -1052,7 +1052,7 @@ impl<FG: ForkGraph> TransactionBatchProcessor<FG> {
 
     #[cfg(feature = "dev-context-only-utils")]
     #[cfg_attr(feature = "dev-context-only-utils", qualifiers(pub))]
-    fn writable_sysvar_cache(&self) -> &RwLock<SysvarCache> {
+    const fn writable_sysvar_cache(&self) -> &RwLock<SysvarCache> {
         &self.sysvar_cache
     }
 }

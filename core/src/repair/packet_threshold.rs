@@ -8,7 +8,7 @@ enum PacketThresholdUpdate {
 impl PacketThresholdUpdate {
     const PERCENTAGE: usize = 90;
 
-    fn calculate(&self, current: usize) -> usize {
+    const fn calculate(&self, current: usize) -> usize {
         match *self {
             PacketThresholdUpdate::Increase => {
                 current.saturating_mul(100).saturating_div(Self::PERCENTAGE)
@@ -48,7 +48,7 @@ impl DynamicPacketToProcessThreshold {
         }
     }
 
-    pub fn should_drop(&self, total: usize) -> bool {
+    pub const fn should_drop(&self, total: usize) -> bool {
         total >= self.max_packets
     }
 }

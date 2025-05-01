@@ -437,7 +437,7 @@ impl Drop for ReadOnlyAccountsCache {
 }
 
 impl ReadOnlyAccountCacheEntry {
-    fn new(account: AccountSharedData, slot: Slot, timestamp: u64) -> Self {
+    const fn new(account: AccountSharedData, slot: Slot, timestamp: u64) -> Self {
         Self {
             account,
             slot,

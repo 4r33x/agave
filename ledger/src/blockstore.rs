@@ -176,7 +176,7 @@ enum WorkingEntry<T> {
 }
 
 impl<T> WorkingEntry<T> {
-    fn should_write(&self) -> bool {
+    const fn should_write(&self) -> bool {
         matches!(self, Self::Dirty(_))
     }
 }
@@ -345,7 +345,7 @@ impl ShredInsertionTracker<'_> {
 impl SlotMetaWorkingSetEntry {
     /// Construct a new SlotMetaWorkingSetEntry with the specified `new_slot_meta`
     /// and `old_slot_meta`.  `did_insert_occur` is set to false.
-    fn new(new_slot_meta: Rc<RefCell<SlotMeta>>, old_slot_meta: Option<SlotMeta>) -> Self {
+    const fn new(new_slot_meta: Rc<RefCell<SlotMeta>>, old_slot_meta: Option<SlotMeta>) -> Self {
         Self {
             new_slot_meta,
             old_slot_meta,
@@ -363,7 +363,7 @@ pub fn banking_retrace_path(path: &Path) -> PathBuf {
 }
 
 impl Blockstore {
-    pub fn ledger_path(&self) -> &PathBuf {
+    pub const fn ledger_path(&self) -> &PathBuf {
         &self.ledger_path
     }
 
@@ -3252,7 +3252,7 @@ impl Blockstore {
 
     // DEPRECATED and decommissioned
     // This method always returns an empty Vec
-    fn find_address_signatures(
+    const fn find_address_signatures(
         &self,
         _pubkey: Pubkey,
         _start_slot: Slot,
@@ -4834,7 +4834,7 @@ fn is_newly_completed_slot(slot_meta: &SlotMeta, backup_slot_meta: &Option<SlotM
 
 /// Returns a boolean indicating whether a slot has received additional shreds
 /// that can be replayed since the previous update to the slot's SlotMeta.
-fn slot_has_updates(slot_meta: &SlotMeta, slot_meta_backup: &Option<SlotMeta>) -> bool {
+const fn slot_has_updates(slot_meta: &SlotMeta, slot_meta_backup: &Option<SlotMeta>) -> bool {
     // First, this slot's parent must be connected in order to even consider
     // starting replay; otherwise, the replayed results may not be valid.
     slot_meta.is_parent_connected() &&
@@ -5052,7 +5052,7 @@ macro_rules! create_new_tmp_ledger_auto_delete {
     };
 }
 
-pub(crate) fn verify_shred_slots(slot: Slot, parent: Slot, root: Slot) -> bool {
+pub(crate) const fn verify_shred_slots(slot: Slot, parent: Slot, root: Slot) -> bool {
     if slot == 0 && parent == 0 && root == 0 {
         return true; // valid write to slot zero.
     }

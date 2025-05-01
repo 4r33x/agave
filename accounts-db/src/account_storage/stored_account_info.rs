@@ -14,7 +14,7 @@ pub struct StoredAccountInfo<'storage> {
 }
 
 impl StoredAccountInfo<'_> {
-    pub fn pubkey(&self) -> &Pubkey {
+    pub const fn pubkey(&self) -> &Pubkey {
         self.pubkey
     }
 }
@@ -75,7 +75,7 @@ pub struct StoredAccountInfoWithoutData<'storage> {
 }
 
 impl StoredAccountInfoWithoutData<'_> {
-    pub fn pubkey(&self) -> &Pubkey {
+    pub const fn pubkey(&self) -> &Pubkey {
         self.pubkey
     }
 }
@@ -86,7 +86,9 @@ impl<'storage> StoredAccountInfoWithoutData<'storage> {
     /// Use this ctor when `other_stored_account` is going out of scope, *but not* the underlying
     /// `'storage`.  This facilitates incremental improvements towards not reading account data
     /// unnecessarily, by changing out the front-end code separately from the back-end.
-    pub fn new_from<'other>(other_stored_account: &'other StoredAccountInfo<'storage>) -> Self {
+    pub const fn new_from<'other>(
+        other_stored_account: &'other StoredAccountInfo<'storage>,
+    ) -> Self {
         // Note that we must use the pubkey/owner fields directly so that we can get the `'storage`
         // lifetime of `other_stored_account`, and *not* its `'other` lifetime.
         Self {

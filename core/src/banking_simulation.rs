@@ -232,7 +232,7 @@ impl BankingTraceEvents {
         }
     }
 
-    pub fn hash_overrides(&self) -> &HashOverrides {
+    pub const fn hash_overrides(&self) -> &HashOverrides {
         &self.hash_overrides
     }
 }
@@ -669,7 +669,7 @@ impl<'a> SenderLoopLogger<'a> {
 }
 
 impl BankingSimulator {
-    pub fn new(banking_trace_events: BankingTraceEvents, first_simulated_slot: Slot) -> Self {
+    pub const fn new(banking_trace_events: BankingTraceEvents, first_simulated_slot: Slot) -> Self {
         Self {
             banking_trace_events,
             first_simulated_slot,

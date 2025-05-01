@@ -1512,7 +1512,7 @@ impl<T: IndexValue, U: DiskIndexValue + From<T> + Into<T>> InMemAccountsIndex<T,
         Self::update_stat(&self.stats().flush_entries_evicted_from_mem, evicted as u64);
         Self::update_stat(&self.stats().failed_to_evict, failed as u64);
     }
-
+    #[allow(clippy::missing_const_for_fn)]
     pub fn stats(&self) -> &BucketMapHolderStats {
         &self.storage.stats
     }

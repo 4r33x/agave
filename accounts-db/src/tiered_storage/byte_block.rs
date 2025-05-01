@@ -49,7 +49,7 @@ impl ByteBlockWriter {
     }
 
     /// Return the length of the raw data (i.e. after decoding).
-    pub fn raw_len(&self) -> usize {
+    pub const fn raw_len(&self) -> usize {
         self.len
     }
 

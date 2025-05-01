@@ -296,7 +296,7 @@ pub struct ParallelSelector {
 }
 
 impl ParallelSelector {
-    pub fn select_index(&self, index: usize) -> bool {
+    pub const fn select_index(&self, index: usize) -> bool {
         index % self.divisions == self.index
     }
 }

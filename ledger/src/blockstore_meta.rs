@@ -237,13 +237,13 @@ pub enum FrozenHashVersioned {
 }
 
 impl FrozenHashVersioned {
-    pub fn frozen_hash(&self) -> Hash {
+    pub const fn frozen_hash(&self) -> Hash {
         match self {
             FrozenHashVersioned::Current(frozen_hash_status) => frozen_hash_status.frozen_hash,
         }
     }
 
-    pub fn is_duplicate_confirmed(&self) -> bool {
+    pub const fn is_duplicate_confirmed(&self) -> bool {
         match self {
             FrozenHashVersioned::Current(frozen_hash_status) => {
                 frozen_hash_status.is_duplicate_confirmed
@@ -267,17 +267,17 @@ impl Index {
         }
     }
 
-    pub fn data(&self) -> &ShredIndex {
+    pub const fn data(&self) -> &ShredIndex {
         &self.data
     }
-    pub fn coding(&self) -> &ShredIndex {
+    pub const fn coding(&self) -> &ShredIndex {
         &self.coding
     }
 
-    pub(crate) fn data_mut(&mut self) -> &mut ShredIndex {
+    pub(crate) const fn data_mut(&mut self) -> &mut ShredIndex {
         &mut self.data
     }
-    pub(crate) fn coding_mut(&mut self) -> &mut ShredIndex {
+    pub(crate) const fn coding_mut(&mut self) -> &mut ShredIndex {
         &mut self.coding
     }
 }
@@ -363,7 +363,7 @@ pub struct ShredIndexV2 {
 }
 
 impl ShredIndexV2 {
-    pub fn num_shreds(&self) -> usize {
+    pub const fn num_shreds(&self) -> usize {
         self.num_shreds
     }
 
@@ -465,12 +465,12 @@ impl SlotMeta {
     /// Returns a boolean indicating whether this meta's parent slot is known.
     /// This value being true indicates that this meta's slot is the head of a
     /// detached chain of slots.
-    pub(crate) fn is_orphan(&self) -> bool {
+    pub(crate) const fn is_orphan(&self) -> bool {
         self.parent_slot.is_none()
     }
 
     /// Returns a boolean indicating whether the meta is connected.
-    pub fn is_connected(&self) -> bool {
+    pub const fn is_connected(&self) -> bool {
         self.connected_flags.contains(ConnectedFlags::CONNECTED)
     }
 
@@ -481,7 +481,7 @@ impl SlotMeta {
     }
 
     /// Returns a boolean indicating whether the meta's parent is connected.
-    pub fn is_parent_connected(&self) -> bool {
+    pub const fn is_parent_connected(&self) -> bool {
         self.connected_flags
             .contains(ConnectedFlags::PARENT_CONNECTED)
     }
@@ -507,7 +507,7 @@ impl SlotMeta {
 
     /// Dangerous.
     #[cfg(feature = "dev-context-only-utils")]
-    pub fn unset_parent(&mut self) {
+    pub const fn unset_parent(&mut self) {
         self.parent_slot = None;
     }
 
@@ -578,7 +578,7 @@ impl ErasureMeta {
         coding_shred.check_coding_shred(shred2)
     }
 
-    pub(crate) fn config(&self) -> ErasureConfig {
+    pub(crate) const fn config(&self) -> ErasureConfig {
         self.config
     }
 
@@ -588,7 +588,7 @@ impl ErasureMeta {
         fec_set_index..fec_set_index + num_data
     }
 
-    pub(crate) fn coding_shreds_indices(&self) -> Range<u64> {
+    pub(crate) const fn coding_shreds_indices(&self) -> Range<u64> {
         let num_coding = self.config.num_coding as u64;
         self.first_coding_index..self.first_coding_index + num_coding
     }
@@ -619,7 +619,7 @@ impl ErasureMeta {
     }
 
     #[cfg(test)]
-    pub(crate) fn clear_first_received_coding_shred_index(&mut self) {
+    pub(crate) const fn clear_first_received_coding_shred_index(&mut self) {
         self.first_received_coding_index = 0;
     }
 }
@@ -639,15 +639,15 @@ impl MerkleRootMeta {
         }
     }
 
-    pub(crate) fn merkle_root(&self) -> Option<Hash> {
+    pub(crate) const fn merkle_root(&self) -> Option<Hash> {
         self.merkle_root
     }
 
-    pub(crate) fn first_received_shred_index(&self) -> u32 {
+    pub(crate) const fn first_received_shred_index(&self) -> u32 {
         self.first_received_shred_index
     }
 
-    pub(crate) fn first_received_shred_type(&self) -> ShredType {
+    pub(crate) const fn first_received_shred_type(&self) -> ShredType {
         self.first_received_shred_type
     }
 }
@@ -729,17 +729,17 @@ pub enum OptimisticSlotMetaVersioned {
 }
 
 impl OptimisticSlotMetaVersioned {
-    pub fn new(hash: Hash, timestamp: UnixTimestamp) -> Self {
+    pub const fn new(hash: Hash, timestamp: UnixTimestamp) -> Self {
         OptimisticSlotMetaVersioned::V0(OptimisticSlotMetaV0 { hash, timestamp })
     }
 
-    pub fn hash(&self) -> Hash {
+    pub const fn hash(&self) -> Hash {
         match self {
             OptimisticSlotMetaVersioned::V0(meta) => meta.hash,
         }
     }
 
-    pub fn timestamp(&self) -> UnixTimestamp {
+    pub const fn timestamp(&self) -> UnixTimestamp {
         match self {
             OptimisticSlotMetaVersioned::V0(meta) => meta.timestamp,
         }

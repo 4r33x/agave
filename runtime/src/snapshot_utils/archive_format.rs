@@ -30,7 +30,7 @@ pub enum ArchiveFormat {
 
 impl ArchiveFormat {
     /// Get the file extension for the ArchiveFormat
-    pub fn extension(&self) -> &str {
+    pub const fn extension(&self) -> &str {
         match self {
             ArchiveFormat::TarBzip2 => TAR_BZIP2_EXTENSION,
             ArchiveFormat::TarGzip => TAR_GZIP_EXTENSION,

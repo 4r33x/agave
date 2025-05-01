@@ -96,7 +96,7 @@ impl StatsSnapshot {
         }
     }
 
-    fn diff_since(&self, predecessor: &Self) -> (u64, u64, u64) {
+    const fn diff_since(&self, predecessor: &Self) -> (u64, u64, u64) {
         (
             self.num_transactions
                 .saturating_sub(predecessor.num_transactions),

@@ -102,7 +102,7 @@ impl LatestValidatorVotesForFrozenBanks {
             .collect()
     }
 
-    pub fn max_gossip_frozen_votes(&self) -> &HashMap<Pubkey, (Slot, Vec<Hash>)> {
+    pub const fn max_gossip_frozen_votes(&self) -> &HashMap<Pubkey, (Slot, Vec<Hash>)> {
         &self.max_gossip_frozen_votes
     }
 
