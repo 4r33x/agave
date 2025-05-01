@@ -23,43 +23,41 @@ use {
     thiserror::Error,
 };
 
-lazy_static! {
-    static ref ADDRESS_LOOKUP_PROGRAM_ID: Pubkey = address_lookup_table::id();
-    static ref ASSOCIATED_TOKEN_PROGRAM_ID: Pubkey = spl_associated_token_id();
-    static ref BPF_LOADER_PROGRAM_ID: Pubkey = solana_sdk_ids::bpf_loader::id();
-    static ref BPF_UPGRADEABLE_LOADER_PROGRAM_ID: Pubkey =
-        solana_sdk_ids::bpf_loader_upgradeable::id();
-    static ref MEMO_V1_PROGRAM_ID: Pubkey = spl_memo_id_v1();
-    static ref MEMO_V3_PROGRAM_ID: Pubkey = spl_memo_id_v3();
-    static ref STAKE_PROGRAM_ID: Pubkey = stake::id();
-    static ref SYSTEM_PROGRAM_ID: Pubkey = system_program::id();
-    static ref VOTE_PROGRAM_ID: Pubkey = vote::id();
-    static ref PARSABLE_PROGRAM_IDS: HashMap<Pubkey, ParsableProgram> = {
+static ADDRESS_LOOKUP_PROGRAM_ID: Pubkey = address_lookup_table::id();
+static ASSOCIATED_TOKEN_PROGRAM_ID: Pubkey = spl_associated_token_id();
+static BPF_LOADER_PROGRAM_ID: Pubkey = solana_sdk_ids::bpf_loader::id();
+static BPF_UPGRADEABLE_LOADER_PROGRAM_ID: Pubkey = solana_sdk_ids::bpf_loader_upgradeable::id();
+static MEMO_V1_PROGRAM_ID: Pubkey = spl_memo_id_v1();
+static MEMO_V3_PROGRAM_ID: Pubkey = spl_memo_id_v3();
+static STAKE_PROGRAM_ID: Pubkey = stake::id();
+static SYSTEM_PROGRAM_ID: Pubkey = system_program::id();
+static VOTE_PROGRAM_ID: Pubkey = vote::id();
+static PARSABLE_PROGRAM_IDS: std::sync::LazyLock<HashMap<Pubkey, ParsableProgram>> =
+    std::sync::LazyLock::new(|| {
         let mut m = HashMap::new();
         m.insert(
-            *ADDRESS_LOOKUP_PROGRAM_ID,
+            ADDRESS_LOOKUP_PROGRAM_ID,
             ParsableProgram::AddressLookupTable,
         );
         m.insert(
-            *ASSOCIATED_TOKEN_PROGRAM_ID,
+            ASSOCIATED_TOKEN_PROGRAM_ID,
             ParsableProgram::SplAssociatedTokenAccount,
         );
-        m.insert(*MEMO_V1_PROGRAM_ID, ParsableProgram::SplMemo);
-        m.insert(*MEMO_V3_PROGRAM_ID, ParsableProgram::SplMemo);
+        m.insert(MEMO_V1_PROGRAM_ID, ParsableProgram::SplMemo);
+        m.insert(MEMO_V3_PROGRAM_ID, ParsableProgram::SplMemo);
         for spl_token_id in spl_token_ids() {
             m.insert(spl_token_id, ParsableProgram::SplToken);
         }
-        m.insert(*BPF_LOADER_PROGRAM_ID, ParsableProgram::BpfLoader);
+        m.insert(BPF_LOADER_PROGRAM_ID, ParsableProgram::BpfLoader);
         m.insert(
-            *BPF_UPGRADEABLE_LOADER_PROGRAM_ID,
+            BPF_UPGRADEABLE_LOADER_PROGRAM_ID,
             ParsableProgram::BpfUpgradeableLoader,
         );
-        m.insert(*STAKE_PROGRAM_ID, ParsableProgram::Stake);
-        m.insert(*SYSTEM_PROGRAM_ID, ParsableProgram::System);
-        m.insert(*VOTE_PROGRAM_ID, ParsableProgram::Vote);
+        m.insert(STAKE_PROGRAM_ID, ParsableProgram::Stake);
+        m.insert(SYSTEM_PROGRAM_ID, ParsableProgram::System);
+        m.insert(VOTE_PROGRAM_ID, ParsableProgram::Vote);
         m
-    };
-}
+    });
 
 #[derive(Error, Debug)]
 pub enum ParseInstructionError {
